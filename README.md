@@ -6,7 +6,17 @@ Before you start, ensure you have the following installed:
 - [Node.js](https://nodejs.org/) (version 14.18+)
 - [npm](https://www.npmjs.com/)
 
+## Database
+if running the database locally run
+
+```sh
+mongod --dbpath=/Users/justinheisler/data/db
+```
+
+mac users might have prepend with sudo
+
 ## Server
+Start a new terminal from project root
 
 1. **Go to directory:**
 
@@ -17,7 +27,7 @@ cd server
 2. **Install dependencies:**
 
 ```sh
-npm i
+npm install
 ```
 
 3. **Set environment variables:**
@@ -28,7 +38,7 @@ in the root on server directory enter
 touch .env
 ```
 
-4. **Set up a Auth0 proejct:**
+4. **Set up a Auth0 project:**
 
 variables to be set:
 AUTH_AUDIENCE
@@ -49,7 +59,46 @@ run start command
 npm start
 ```
 
+## Client
 
+1. **Go to directory:**
+Start a new terminal from project root
 
-for local db run 
-sudo mongod --dbpath=/Users/justinheisler/data/db
+```sh
+cd client
+```
+
+2. **Install dependencies:**
+
+```sh
+npm install
+```
+
+4. **Set up a Auth0 project:**
+
+variables to be set:
+VITE_AUTH_DOMAIN,
+VITE_CLIENT_ID,
+VITE_REDIRECT_URI,
+VITE_AUTH_AUDIENCE
+
+5. **Set up AWS Bucket:**
+
+variables to be set:
+VITE_AWS_REGION,
+VITE_AWS_KEY_ID,
+VITE_AWS_SECRET_KEY,
+VITE_AWS_BUCKET
+
+6. **Set project variables:**
+
+variables to be set:
+VITE_SERVER_URL
+
+6. **Start project:**
+
+run start command
+
+```sh
+npm dev
+```
