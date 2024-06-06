@@ -19,6 +19,8 @@ export type { ResturantInfo } from './ResturantInfo'
 
 export type { ResturantRecord } from './ResturantRecord'
 
+export type { ServerRequest } from './ServerRequest'
+
 export type { UserEntityInfo } from './UserEntityInfo'
 
 export type { UserInfo } from './UserInfo'

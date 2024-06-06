@@ -20,19 +20,19 @@ const Overview: React.FC<OverviewProps> = (props) => {
   
   if (user.isLoading || resturant.isLoading) return <div>Loading</div>
   
- return (
-   <div>
-    {!user.data?.data.records?.resturantId && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_CREATE}>Create Resturant</Router.Link>}
+  return (
+    <div>
+      {!user.data?.data.records?.resturantId && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_CREATE}>Create Resturant</Router.Link>}
 
-    {user.data?.data.records?.resturantId && (
-      <div>
-        {resturant.data?.name}
-        {/* <div>{user.data.data.records.name}</div> */}
-        <div>puppies</div>
-      </div>
-    )}
-   </div>
- )
+      {user.data?.data.records?.resturantId && (
+        <div>
+          {resturant.data?.name}
+          {/* <div>{user.data.data.records.name}</div> */}
+          <div>puppies</div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 
