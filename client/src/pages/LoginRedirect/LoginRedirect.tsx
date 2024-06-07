@@ -15,39 +15,41 @@ export interface LoginRedirectProps extends React.PropsWithChildren {
 
 const LoginRedirect: React.FC<LoginRedirectProps> = () => {
 
-  const appCtx = App.Ctx.useContext()
-  const auth = Hooks.common.useAuth()
-  const navigate = Hooks.common.useNavigate()
-  const userApi = Hooks.server.useUser()
-  const createUser = Hooks.user.useCreateUser()
+  // const [token, tokenHandler] = React.useState<string | undefined>(undefined)
+  // const auth = Hooks.common.useAuth()
+  // const navigate = Hooks.common.useNavigate()
+  const loginUser = Hooks.user.useLogin()
 
-  const userCreated = React.useRef(false)
+  if (loginUser.isLoading) return <div>loading</div>
 
-  React.useEffect(() => {
-    const loginUser = async () => {
-      let user: Core.I.UserRecord | undefined = undefined
+  // const user = Hooks.user.useGetUserByEmail(auth.user?.email)
+  // const createUser = Hooks.user.useCreateUser()
+  // const loginUser = Hooks.user.login({ token: ), email })
+  // const createUser = Hooks.user.useCreateUser(auth.user?.email)
+  // const userCreated = React.useRef(!!user.data?.id)
+
+  // loginUser.then(() => navigate('/'))
+
+  // React.useEffect(() => {
+  //   const loginUser = async () => {
+  //     // let user: Core.I.UserRecord | undefined = undefined
       
-      if (!auth.user?.email || !auth.user.sub || userCreated.current) return
+  //     if (!auth.user?.email || !auth.user.sub || userCreated.current) return
       
-      const userResponse = await userApi.exists.mutateAsync(auth.user?.email)
-
-      if (userResponse.data.records) user = userResponse.data.records
-
-      const token = await auth.getAccessTokenSilently()
+  //     const token = await auth.getAccessTokenSilently()
       
-      Cookie.set('etnw_auth', token)
+  //     Cookie.set('etnw_auth', token)
+  //     console.log('puppy user data, ', !user.data, !user.isLoading, !user.data && !user.isLoading)
       
-      if (!userResponse.data.records) await createUser.mutate({ email: auth.user.email, auth0id: auth.user.sub })
+  //     if (!user.data?.email) await createUser.mutateAsync({ email: auth.user.email, auth0id: auth.user.sub })
       
-      userCreated.current = true
+  //     userCreated.current = true
 
-      appCtx.setUser(user)
-
-      navigate('/')
-    }
+  //     navigate('/')
+  //   }
     
-    loginUser()
-  }, [])
+  //   loginUser()
+  // }, [user.data, user.isLoading, createUser.data])
 
  return (
    <div>

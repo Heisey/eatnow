@@ -37,6 +37,6 @@ export const getById = async (req: express.Request, res: express.Response, next:
   if (!record) return res.status(404).json({ message: 'resturant does not exist' })
 
   res.status(200).json({
-    record
+    records: record
   })
 }

@@ -8,11 +8,11 @@ export const createUser = async (req: express.Request, res: express.Response, ne
   try {
     if (!req.body.auth0id) return res.status(500).json({ status: 'failed', err: 'invalid credentials' })
       
-    const user = await Models.User.findOne({ authId: req.body.auth0id })
+    const user = await Models.User.findOne({ auth0Id: req.body.auth0id })
 
     if (user) return res.status(500).json({ status: 'failed', err: 'user already exists'})
 
-    const newUser = await new Models.User({ ...req.body, authId: req.body.auth0id }).save()
+    const newUser = await new Models.User({ ...req.body }).save()
 
     res.status(201).json({
       status: 'successful',
@@ -73,6 +73,25 @@ export const updateUser = async (req: express.Request, res: express.Response, ne
     user.save()
     
     res.status(204).json({ records: user })
+  } catch(err) {
+    console.log(err)
+    res.status(500).json({ message: 'server error' })
+  }
+}
+
+export const loginUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  try {
+    console.log('body, ', req.body)
+    let user = await Models.User.findOne({ email: req.body.email })
+
+    console.log('user, ', user)
+    if (user) return res.status(200).json({ records: user })
+
+    const newUser = await new Models.User({ ...req.body }).save()
+    console.log('puppy new, ', newUser)
+    if (!newUser) return res.status(500).json({ message: 'failed to create user' })
+
+    res.status(201).json({ records: newUser })
   } catch(err) {
     console.log(err)
     res.status(500).json({ message: 'server error' })
