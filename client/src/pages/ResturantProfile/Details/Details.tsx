@@ -1,5 +1,6 @@
 
 
+import * as Lucide from 'lucide-react'
 import * as React from 'react'
 import * as ZHook from '@hookform/resolvers/zod'
 
@@ -38,7 +39,16 @@ const Details: React.FC<DetailsProps> = (props) => {
   const form = Hooks.common.useForm<Validate.ResturantProfileValidation>({
     resolver: ZHook.zodResolver(Validate.resturantProfile),
     defaultValues: {
-      cuisine: []
+      cuisine: [],
+      userId: '',
+      address: '',
+      name: '',
+      city: '',
+      country: '',
+      deliveryPrice: 0,
+      logo: '',
+      coverImage: ''
+
     }
   })
 
@@ -57,7 +67,7 @@ const Details: React.FC<DetailsProps> = (props) => {
       control={form.control} 
       name={args.field}
       render={(dataset) => (
-        <FormItem className={`flex-1 ${args.className}`}>
+        <FormItem className={`flex-1 mt-4 ${args.className}`}>
           <FormLabel>{args.label ? Utils.string.capitalizeAllWords(args.label) : Utils.string.capitalize(args.field)}</FormLabel>
           <FormControl>
             <Input { ...dataset.field } type={args.type || 'string'} />
@@ -74,18 +84,20 @@ const Details: React.FC<DetailsProps> = (props) => {
       name={'logo'}
       render={data => (
         <FormItem>
-          <FormLabel>
-            Drag or select file
-          </FormLabel>
-          <FormControl className='w-[40%]'>
-            <Input
-              className='bg-white'
-              type='file'
-              accept='.jpg, .jpeg, .png'
-              onChange={e => data.field.onChange(onChangeLogo(e))}
-            />
-          </FormControl>
-          <FormMessage />
+          <div className=''>
+            <FormLabel>
+              Drag or select file
+            </FormLabel>
+            <FormControl className='w-[40%]'>
+              <Input
+                className='bg-white'
+                type='file'
+                accept='.jpg, .jpeg, .png'
+                onChange={e => data.field.onChange(onChangeLogo(e))}
+              />
+            </FormControl>
+            <FormMessage />
+          </div>
         </FormItem>
       )}
     />
@@ -99,7 +111,7 @@ const Details: React.FC<DetailsProps> = (props) => {
         <FormItem>
           <div className='grid md:grid-cols-5 gap-1'>
             {cuisineArr.map(dataSet => (
-              <FormItem key={dataSet.label} className='flex flex-row items-center space-x-1 space-y-0 mt-2'>
+              <FormItem key={dataSet.label} className='flex flex-row items-center space-x-1 space-y-0 mt-4'>
                 <FormControl>
                   <Checkbox 
                     checked={args.field.value.includes(dataSet.value)}
@@ -149,22 +161,31 @@ const Details: React.FC<DetailsProps> = (props) => {
     toggleLogoModalOpen()
   }
 
+  const renderLogo = () => (
+    <div className='group relative w-full flex justify-center items-center'>
+      <img src={form.getValues('logo') || resturant.data?.logo} className='h-[150px]' />
+      <Button variant='ghost' className='border-4 border-orange-500 invisible absolute bottom-1 right-1 group-hover:visible hover:bg-orange-500 hover:border-transparent transition-all duration-300'>
+        <Lucide.Pencil className='stroke-2 fill-orange-500' />
+      </Button>
+    </div>
+  )
+
   return (
     <div className='p-3 w-full'>
       <Form {...form }>
         <Dialog open={logoModalOpen}>
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className='flex items-center justify-center text-white font-bold tracking-wider text-xl-3 h-[300px] w-full bg-orange-500'>
-              <h2 className='text-2xl font-bold'>Details</h2>
+              <h2 className='text-2xl font-bold'>{form.getValues('name') ? Utils.string.capitalizeAllWords(form.getValues('name')) : 'Resturant Name'}</h2>
               {/* <FormDescription>Enter Resturant Details</FormDescription> */}
             </div>
 
             <Card className='ml-[50px] w-[225px] h-[150px] flex items-center justify-center mt-[-30px]'>
-              {(!!resturant.data?.logo || !!form.getValues('logo')) && <img src={form.getValues('logo') || resturant.data?.logo} className='h-[150px]' />}
+              {(!!resturant.data?.logo || !!form.getValues('logo')) && renderLogo()}
               {(!resturant.data?.logo && !form.getValues('logo')) && <Button onClick={toggleLogoModalOpen} variant='ghost' type='button'>add logo</Button>}
             </Card>
 
-            <div>
+            <div className='mt-4'>
               {renderField({ field: 'name' })}
               {renderField({ field: 'address' })}
               <div className='flex gap-4'>
@@ -174,9 +195,13 @@ const Details: React.FC<DetailsProps> = (props) => {
               {renderField({ field: 'deliveryPrice', type: 'number', label: 'delivery price', className: 'max-w-[25%]' })}
             </div>
 
-            {renderCuisineField()}
-
-            <Button type='submit'>Submit</Button>
+            <div className='mt-4'>
+              <p><span className='font-bold'>Select Cuisine you offer</span> <span>(must select atleast one)</span></p>
+              {renderCuisineField()}
+            </div>
+            <div className='flex justify-end'>
+              <Button type='submit' className='ml-auto mt-4 bg-orange-500'>Submit</Button>
+            </div>
           </form>
 
           <DialogContent className='flex flex-col max-w-[900px] max-h-[600px] w-full h-full p-1'>
