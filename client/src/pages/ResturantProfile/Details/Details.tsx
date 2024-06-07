@@ -29,7 +29,7 @@ const Details: React.FC<DetailsProps> = (props) => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
-  const resturant = Hooks.resturant.useGetById(user.data?.data.records?.resturantId)
+  const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
   const createResturant = Hooks.resturant.useCreate()
   const logoImage = Hooks.common.useImagePreview(null)
 
@@ -41,6 +41,10 @@ const Details: React.FC<DetailsProps> = (props) => {
       cuisine: []
     }
   })
+
+  React.useEffect(() => {
+    if (resturant.data) form.reset((dataSet) => ({ ...dataSet, ...resturant.data}))
+  }, [resturant.data])
 
   const cuisineArr = Object.keys(Core.keys.cuisine).map(dataSet => ({ label: dataSet, value: Core.keys.cuisine[dataSet as keyof typeof Core.keys.cuisine]}))
 
