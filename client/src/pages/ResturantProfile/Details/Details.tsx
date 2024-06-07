@@ -46,7 +46,7 @@ const Details: React.FC<DetailsProps> = (props) => {
 
   if (user.isLoading) return <div>Loading</div>
 
-  if (user.data?.data.records?.id) form.setValue('userId', user.data.data.records.id)
+  if (user.data?.id) form.setValue('userId', user.data.id)
 
   const renderField = (args: RenderField) => (
     <FormField 

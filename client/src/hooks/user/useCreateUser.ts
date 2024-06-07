@@ -2,12 +2,11 @@
 import * as Query from 'react-query'
 
 import * as Api from '@/api'
-import * as Core from '@/core'
 
 export const useCreateUser = () => Query.useMutation({
   mutationFn: Api.user.create,
-  onSuccess: (data) => {
+  onSuccess: () => {
     const client = Query.useQueryClient()
-    client.setQueryData(['user', data?.email], data)
+    client.invalidateQueries(['user'])
   }
 })
