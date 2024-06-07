@@ -81,14 +81,12 @@ export const updateUser = async (req: express.Request, res: express.Response, ne
 
 export const loginUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
-    console.log('body, ', req.body)
     let user = await Models.User.findOne({ email: req.body.email })
 
-    console.log('user, ', user)
     if (user) return res.status(200).json({ records: user })
 
     const newUser = await new Models.User({ ...req.body }).save()
-    console.log('puppy new, ', newUser)
+    
     if (!newUser) return res.status(500).json({ message: 'failed to create user' })
 
     res.status(201).json({ records: newUser })
