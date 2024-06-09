@@ -6,10 +6,10 @@ import * as Validate from '.'
 
 export const menu: Validator.z.ZodType<Core.I.MenuInfo> = Validator.z.object({
   // id: Validator.z.string(),
-  appetizers: Validator.z.array(Validate.menuItem),
-  mains: Validator.z.array(Validate.menuItem).optional(),
-  drinks: Validator.z.array(Validate.menuItem).optional(),
-  deserts: Validator.z.array(Validate.menuItem).optional(),
+  appetizers: Validator.z.array(Validator.z.string()),
+  mains: Validator.z.array(Validator.z.string()).optional(),
+  drinks: Validator.z.array(Validator.z.string()).optional(),
+  deserts: Validator.z.array(Validator.z.string()).optional(),
 })
 
 export type MenuValidate = Validator.z.infer<typeof menu>
