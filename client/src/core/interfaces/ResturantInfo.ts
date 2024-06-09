@@ -10,4 +10,6 @@ export interface ResturantInfo {
   logo?: string
   coverImage?: string
   cuisine: number[]
+  menuId?: string
+  menuItemsCreated?: boolean
 }

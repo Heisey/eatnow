@@ -20,7 +20,7 @@ export interface DetailsProps extends React.PropsWithChildren {
 }
 
 interface RenderField {
-  field: keyof Omit<Validate.ResturantProfileValidation, 'cuisine' | 'menu' | 'logo' | 'coverImage'>
+  field: keyof Omit<Validate.ResturantProfileValidation, 'cuisine' | 'menu' | 'logo' | 'coverImage' | 'menuItemsCreated'>
   label?: string
   className?: string
   type?: 'string' | 'number'
@@ -33,6 +33,7 @@ const Details: React.FC<DetailsProps> = (props) => {
   const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
   const createResturant = Hooks.resturant.useCreate()
   const logoImage = Hooks.common.useImagePreview(null)
+  const navigate = Hooks.common.useNavigate()
 
   const [logoModalOpen, toggleLogoModalOpen] = Hooks.common.useToggle()
 
@@ -145,7 +146,7 @@ const Details: React.FC<DetailsProps> = (props) => {
 
   const onSave = async (args: Validate.ResturantProfileValidation) => {
     await createResturant.mutateAsync(args)
-    
+    if (createResturant.isSuccess) navigate(Core.keys.paths.RESTURANT_PROFILE_OVERVIEW)
   }
 
   const uploadLogo = async () => {

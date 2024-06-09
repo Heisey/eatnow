@@ -6,8 +6,8 @@ import * as Api from '@/api'
 import * as Hooks from '@/hooks'
 
 export const useLogin =  () => {
-
   const auth = Hooks.common.useAuth()
+  const client = Query.useQueryClient()
   const navigate = Hooks.common.useNavigate()
 
   return Query.useQuery({
@@ -19,7 +19,6 @@ export const useLogin =  () => {
     },
     enabled: !!auth.user?.email && !!auth.user.sub,
     onSuccess: () => {
-      const client = Query.useQueryClient()
       client.invalidateQueries(['user'])
       navigate('/')
     }

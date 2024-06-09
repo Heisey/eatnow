@@ -10,6 +10,8 @@ router.use(Middleware.auth.jwtCheck)
 
 router.post('/', Controllers.resturant.create)
 
+router.post('/menuItems', Controllers.menuItem.create)
+
 router.get('/:id', Controllers.resturant.getById)
 
 export default router

@@ -13,7 +13,7 @@ const MenuItemSchema = new mongoose.Schema<I.MenuItemRecord>({
     require: true
   },
   ingredients: {
-    type: [{ type: String }],
+    type: String,
     require: true
   },
   description: {
@@ -28,6 +28,10 @@ const MenuItemSchema = new mongoose.Schema<I.MenuItemRecord>({
   menuId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Menu'
+  },
+  image: {
+    type: String,
+    required: true
   }
 })
 

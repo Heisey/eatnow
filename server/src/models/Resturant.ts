@@ -39,6 +39,10 @@ const ResturantSchema = new mongoose.Schema<I.ResturantRecord>({
   menuId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Menu'
+  },
+  menuItemsCreated: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

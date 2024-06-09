@@ -1,2 +1,2 @@
 
-export * from './ResturantProfile'
+export * from './Root'

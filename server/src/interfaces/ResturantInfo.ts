@@ -13,4 +13,5 @@ export interface ResturantInfo {
   coverImage?: string
   cuisine: Keys.cuisine[]
   menuId?: mongoose.Types.ObjectId
+  menuItemsCreated?: boolean
 }

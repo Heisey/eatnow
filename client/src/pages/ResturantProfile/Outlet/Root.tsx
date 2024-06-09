@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 
-import Component from './ResturantProfile'
+import Component from './Outlet'
 import * as Ctx from './context'
 
 const Root: React.FC = () => {

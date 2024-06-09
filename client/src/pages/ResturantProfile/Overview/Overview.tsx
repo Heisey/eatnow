@@ -22,15 +22,11 @@ const Overview: React.FC<OverviewProps> = (props) => {
   
   return (
     <div>
-      {!user.data?.resturantId && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_CREATE}>Create Resturant</Router.Link>}
+      {!user.data?.resturantId && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_DETAILS}>Create Resturant</Router.Link>}
 
-      {user.data?.resturantId && (
-        <div>
-          {resturant.data?.name}
-          {/* <div>{user.data.data.records.name}</div> */}
-          <div>puppies</div>
-        </div>
-      )}
+      {user.data?.resturantId && <div>{resturant.data?.name}</div>}
+      
+      {(user.data?.resturantId && !resturant.data?.menuItemsCreated) && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS}>Create Menu Items</Router.Link>}
     </div>
   )
 }
