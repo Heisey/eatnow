@@ -3,8 +3,6 @@ import express from 'express'
 
 import * as Models from '../models'
 
-
-
 export const getById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const records = await Models.Menu.findById(req.params.id)

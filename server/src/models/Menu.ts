@@ -23,4 +23,13 @@ const MenuSchema = new mongoose.Schema<I.MenuRecord>({
   }
 })
 
+MenuSchema.set('toJSON', {
+  transform: function(doc, rec) {
+    rec.id = rec._id
+    delete rec._id
+    return rec
+  },
+  virtuals: true
+})
+
 export default mongoose.model('Menu', MenuSchema)

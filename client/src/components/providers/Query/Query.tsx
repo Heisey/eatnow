@@ -21,11 +21,11 @@ const Query: React.FC<QueryProps> = (props) => {
     }
   })
 
- return (
-  <ReactQuery.QueryClientProvider client={client}>
-    {props.children}
-  </ReactQuery.QueryClientProvider>
- )
+  return (
+    <ReactQuery.QueryClientProvider client={client}>
+      {props.children}
+    </ReactQuery.QueryClientProvider>
+  )
 }
 
 
