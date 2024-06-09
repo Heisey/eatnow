@@ -17,6 +17,7 @@ const Overview: React.FC<OverviewProps> = (props) => {
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
   const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
+  const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
   
   if (user.isLoading || resturant.isLoading) return <div>Loading</div>
   
@@ -26,7 +27,9 @@ const Overview: React.FC<OverviewProps> = (props) => {
 
       {user.data?.resturantId && <div>{resturant.data?.name}</div>}
       
-      {(user.data?.resturantId && !resturant.data?.menuItemsCreated) && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS}>Create Menu Items</Router.Link>}
+      {(user.data?.resturantId && (menuItems.data || []).length === 0) && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS}>Create Menu Items</Router.Link>}
+
+      {(menuItems.data || []).length > 0 && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU}>Create Menu</Router.Link>}
     </div>
   )
 }

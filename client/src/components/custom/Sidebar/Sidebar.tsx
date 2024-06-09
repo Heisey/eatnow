@@ -18,6 +18,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
+  const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
 
   return (
     <div className='w-[200px] border-r min-h-screen'>
@@ -27,7 +28,8 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
       <div className='flex flex-col gap-y-3'>
         <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_OVERVIEW} className='max-w-[150px]'>Overview</Router.Link>
         <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_DETAILS} className='max-w-[150px]'>Info</Router.Link>
-        {user.data?.resturantId && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS} className='max-w-[150px'>Menu Items</Router.Link>}
+        {user.data?.resturantId && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS} className='max-w-[150px]'>Menu Items</Router.Link>}
+        {(user.data?.resturantId && (menuItems.data || []).length > 0) && <Router.Link to={Core.keys.paths.RESTURANT_PROFILE_MENU} className='max-w-[150px]'>Menu</Router.Link>}
       </div>
     </div>
   )

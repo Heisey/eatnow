@@ -94,6 +94,7 @@ const MenuItems: React.FC<MenuItemsProps> = (props) => {
     if (!awsResponse?.Location) return
     form.setValue('image', awsResponse.Location)
     await createMenuItem.mutateAsync(form.getValues())
+    logoImage.updatePreview(null)
     form.reset()
     toggleShowInput()
   }

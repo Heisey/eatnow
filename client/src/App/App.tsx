@@ -7,6 +7,7 @@ import Landing from '@/pages/Landing'
 import LoginRedirect from '@/pages/LoginRedirect'
 import UserProfile from '@/pages/UserProfile'
 import ResturantProfileDetails from '@/pages/ResturantProfile/Details'
+import ResturantProfileMenu from '@/pages/ResturantProfile/Menu'
 import ResturantProfileMenuItems from '@/pages/ResturantProfile/MenuItems'
 import ResturantProfileOutlet from '@/pages/ResturantProfile/Outlet/Outlet'
 import ResturantProfileOverview from '@/pages/ResturantProfile/Overview'
@@ -27,6 +28,7 @@ const App: React.FC = () => {
           <Router.Route path={Core.keys.paths.RESTURANT_PROFILE} element={<ResturantProfileOutlet />}>
             <Router.Route index path={Core.keys.paths.RESTURANT_PROFILE_OVERVIEW} element={<ResturantProfileOverview />} />
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_DETAILS} element={<ResturantProfileDetails />} />
+            <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_MENU} element={<ResturantProfileMenu />} />
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS} element={<ResturantProfileMenuItems />} />
           </Router.Route>
         </Router.Route>
