@@ -2,6 +2,7 @@
 import * as Lucide from 'lucide-react'
 import * as React from 'react'
 import * as ZHook from '@hookform/resolvers/zod'
+import * as ReactTable from '@tanstack/react-table'
 
 import * as Core from '@/core'
 import * as Hooks from '@/hooks'
@@ -13,13 +14,12 @@ import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog'
 
 import InputField from './components/InputField'
+import ItemsTable from './components/ItemsTable'
 import TextAreaField from './components/TextAreaField'
 
 export interface MenuItemsProps extends React.PropsWithChildren {
 
-
 }
-
 
 const MenuItems: React.FC<MenuItemsProps> = (props) => {
 
@@ -46,8 +46,17 @@ const MenuItems: React.FC<MenuItemsProps> = (props) => {
     if (!form.getValues('resturantId') && user.data?.resturantId) form.reset(dataSet => ({ ...dataSet, resturantId: user.data?.resturantId! }))
   }, [user.data?.resturantId])
 
-  if (user.isLoading || menuItems.isLoading) return <div>loading</div>
+  if (auth.isLoading || user.isLoading || menuItems.isLoading) return <div>loading</div>
 
+  const columnConfig = ReactTable.createColumnHelper<Core.I.MenuItemRecord>()
+
+  const columns = [
+    columnConfig.accessor('image', { header: '', cell: dataSet => <img src={dataSet.getValue()} className='h-[75px] w-auto' alt='image of food' />}),
+    columnConfig.accessor('name', { header: 'Name', cell: dataSet => Utils.string.capitalizeAllWords(dataSet.getValue())}),
+    columnConfig.accessor('price', { header: 'Price', cell: dataSet => `$${dataSet.getValue()}`}),
+    columnConfig.accessor('menuId', { header: 'On Menu', cell: dataSet => dataSet.getValue() ? 'Yes' : 'No'}),
+    columnConfig.accessor('updatedAt', { header: 'Last Updated', cell: dataSet => dataSet.getValue()}),
+  ]
   
   const nameRegister = form.register('name')
   const priceRegister = form.register('price')
@@ -55,6 +64,7 @@ const MenuItems: React.FC<MenuItemsProps> = (props) => {
   const ingredientsRegister = form.register('ingredients')
   const imageRegister = form.register('image')
   
+
   const onChangeLogo =  (args: React.ChangeEvent<HTMLInputElement>) => {
     const file = args.target.files ? args.target.files[0] : null
 
@@ -77,13 +87,13 @@ const MenuItems: React.FC<MenuItemsProps> = (props) => {
     form.reset()
   }
 
-  const onSave = async (args: Core.I.MenuItemInfo) => {
+  const onSave = async () => {
     form.resetField('image')
     if (!logoImage.file) return
     const awsResponse = await Utils.aws.uploadImage(logoImage.file)
-    if (!awsResponse) return
+    if (!awsResponse?.Location) return
     form.setValue('image', awsResponse.Location)
-    await createMenuItem.mutateAsync(args)
+    await createMenuItem.mutateAsync(form.getValues())
     form.reset()
     toggleShowInput()
   }
@@ -122,12 +132,14 @@ const MenuItems: React.FC<MenuItemsProps> = (props) => {
   )
 
   return (
-    <div className='p-3'>
+    <div className='p-3 w-full'>
       <Dialog open={showInput}>
+        <div className='flex justify-end py-4'>
+          <Button type='button' disabled={showInput} onClick={toggleShowInput}>Create Menu Item</Button>
+        </div>
+        {(menuItems.data || []).length > 0 && <ItemsTable columns={columns} data={menuItems.data!} />} 
         {(menuItems.data || [] ).length === 0 && <h2>You have not created any items yet</h2>}
-        {(menuItems.data || []).length > 0 && menuItems.data?.map(dataSet => <span>{dataSet.id}</span>)}
-        <Button type='button' disabled={showInput} onClick={toggleShowInput}>Create Menu Item</Button>
-      
+
         <DialogContent>
           {renderForm()}
         </DialogContent>

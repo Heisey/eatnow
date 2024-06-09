@@ -7,7 +7,6 @@ export const create = async (req: express.Request, res: express.Response, next: 
   try {
     const userData = await Models.User.findById(req.body.userId)
 
-    console.log('puppy userData, ', req.body.userId, userData)
     if (!userData) return res.status(404).json({ err: 'failed to find user '})
     
     if (userData.resturantId) return res.status(409).json({ err: 'resturant already exists' })

@@ -10,7 +10,6 @@ export const useCreateMenuItem = () => {
   return Query.useMutation({
     mutationFn: Api.resturant.createMenuItem,
     onSuccess: (data) => {
-      console.log('puppies create, ', data)
       client.resetQueries(['menu_items', data?.resturantId])
     }  
   })

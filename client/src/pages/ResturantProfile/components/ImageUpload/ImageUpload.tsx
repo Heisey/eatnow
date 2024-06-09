@@ -52,10 +52,7 @@ const ImageUpload: React.FC<ImageUploadProps> = (props) => {
   const onSaveLogo = async () => {
     if (!logoImage.file) return
     const logo = await Utils.aws.uploadImage(logoImage.file)
-    if (logo) {
-      props.form.setValue('logo', logo.Location)
-      console.log('puppy values ', props.form.getValues())
-    }
+    if (logo) props.form.setValue('logo', logo.Location)
   }
 
   const onSaveCoverImage = async () => {

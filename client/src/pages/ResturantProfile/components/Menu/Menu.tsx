@@ -48,7 +48,6 @@ const Menu: React.FC<MenuProps> = (props) => {
       control={props.form.control} 
       name='menu.appetizers' 
       render={args => {
-        // console.log('puppy args, ', args)
         return (
           <FormItem className='flex flex-col gap-2'>
           {appetizers.fields.map((data, index) => (
