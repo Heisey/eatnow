@@ -6,16 +6,20 @@ import * as Models from '.'
 
 const MenuSchema = new mongoose.Schema<I.MenuRecord>({
   appetizers: {
-    type: [Models.MenuItem.schema]
+    type: [mongoose.Types.ObjectId],
+    ref: 'MenuItem'
   },
   mains: {
-    type: [Models.MenuItem.schema]
+    type: [mongoose.Types.ObjectId],
+    ref: 'MenuItem'
   },
   drinks: {
-    type: [Models.MenuItem.schema]
+    type: [mongoose.Types.ObjectId],
+    ref: 'MenuItem'
   },
   deserts: {
-    type: [Models.MenuItem.schema]
+    type: [mongoose.Types.ObjectId],
+    ref: 'MenuItem'
   }
 })
 

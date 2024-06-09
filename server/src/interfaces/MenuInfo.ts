@@ -1,9 +1,11 @@
 
+import * as mongoose from 'mongoose'
+
 import * as I from '.'
 
 export interface MenuInfo {
-  appetizers?: I.MenuItemRecord[],
-  mains?: I.MenuItemRecord[]
-  drinks?: I.MenuItemRecord[]
-  deserts?: I.MenuItemRecord[]
+  appetizers?: mongoose.Types.ObjectId[]
+  mains?: mongoose.Types.ObjectId[]
+  drinks?: mongoose.Types.ObjectId[]
+  deserts?: mongoose.Types.ObjectId[]
 }
