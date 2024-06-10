@@ -1,12 +1,12 @@
 
-import * as Query from 'react-query'
+import * as Query from '@tanstack/react-query'
 
 import * as Api from '@/api'
 
 export const useGetById = (args?: string) => {
 
   return Query.useQuery({
-    queryFn: () => Api.resturant.getById(args!),
+    queryFn: () => Api.menu.getById(args!),
     queryKey: ['menu', args],
     enabled: !!args
   })

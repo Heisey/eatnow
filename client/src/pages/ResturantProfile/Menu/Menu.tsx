@@ -12,7 +12,7 @@ const Menu: React.FC<MenuProps> = (props) => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
-  const resturant = Hooks.menu.useGetById(user.data?.resturantId)
+  const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
   const menu = Hooks.menu.useGetById(resturant.data?.menuId)
 
   if (auth.isLoading || user.isLoading || resturant.isLoading || menu.isLoading ) return <div>Loading</div>

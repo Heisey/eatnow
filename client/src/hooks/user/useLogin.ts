@@ -1,6 +1,6 @@
 
 import Cookie from 'js-cookie'
-import * as Query from 'react-query'
+import * as Query from '@tanstack/react-query'
 
 import * as Api from '@/api'
 import * as Hooks from '@/hooks'

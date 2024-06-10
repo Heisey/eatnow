@@ -32,8 +32,7 @@ export const create = async (req: express.Request, res: express.Response, next: 
 
 export const getById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const id = req.params.id
-  const record =  await Models.Resturant.findOne({ id })
-  console.log('puppy id, ', id === '66657941d356e5cadb1c81aa', record)
+  const record =  await Models.Resturant.findById(id)
 
   if (!record) return res.status(404).json({ message: 'resturant does not exist' })
 
