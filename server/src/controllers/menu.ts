@@ -15,3 +15,16 @@ export const getById = async (req: express.Request, res: express.Response, next:
     })
   }
 }
+
+export const updateById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  try {
+    const records = await Models.Menu.findByIdAndUpdate(req.params.id, req.body)
+
+    return res.status(204).json({ records })
+  } catch(err) {
+    console.log(err)
+    res.status(500).json({
+      err: 'failed to create resturant'
+    })
+  }
+}
