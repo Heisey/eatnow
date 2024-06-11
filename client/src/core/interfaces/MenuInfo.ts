@@ -1,9 +1,9 @@
 
-import * as I from '.'
+import * as I from '@/core/interfaces'
 
 export interface MenuInfo {
-  appetizers?: string[]
-  mains?: string[]
-  drinks?: string[]
-  deserts?: string[]
+  appetizers?: I.MenuItemRecord[]
+  mains?: I.MenuItemRecord[]
+  drinks?: I.MenuItemRecord[]
+  deserts?: I.MenuItemRecord[]
 }

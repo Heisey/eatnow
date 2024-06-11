@@ -19,7 +19,7 @@ export const create = async (req: express.Request, res: express.Response, next: 
 export const getAllByResturantId = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const records = await Models.MenuItem.find({ resturantId: req.params.resturantId })
-
+    
     if (!records) return res.status(404).json({ err: 'failed to find menu items '})
 
     res.status(200).json({
