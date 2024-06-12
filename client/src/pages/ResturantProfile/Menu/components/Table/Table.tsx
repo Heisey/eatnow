@@ -7,14 +7,14 @@ import * as Core from '@/core'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 export interface MenuTableProps extends React.PropsWithChildren {
-  columns: ReactTable.AccessorColumnDef<Core.I.MenuItemRecord, any>[]
+  columns: ReactTable.AccessorColumnDef<Core.I.MenuRecord, any>[]
   data: Core.I.MenuRecord
 }
 
 const MenuTable: React.FC<MenuTableProps> = (props) => {
 
   const table = ReactTable.useReactTable({
-    data: props.data.appetizers || props.data.mains || [],
+    data: props.data.appetizers || [],
     columns: props.columns,
     getCoreRowModel: ReactTable.getCoreRowModel()
   })
@@ -36,11 +36,16 @@ const MenuTable: React.FC<MenuTableProps> = (props) => {
         <TableBody>
           {table.getRowModel().rows.map(row => (
             <TableRow id={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>
-                  {ReactTable.flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
+              {row.getVisibleCells().map(cell => {
+                console.log('puppy cell, ', cell.column.columnDef.cell)
+                return (
+                  <TableCell key={cell.id}>
+                    {/* {cell.column.columnDef.cell || cell.getContext() || ''} */}
+                    {ReactTable.flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {/* {cell.column.columnDef.cell || ''} */}
+                  </TableCell>
+                )
+              })}
             </TableRow>
           ))}
         </TableBody>

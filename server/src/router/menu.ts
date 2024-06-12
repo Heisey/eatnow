@@ -12,4 +12,6 @@ router.get('/:id', Middleware.auth.jwtCheck, Controllers.menu.getById)
 
 router.put('/:id', Middleware.auth.jwtCheck, Controllers.menu.updateById)
 
+router.put('/:id/addItem', Middleware.auth.jwtCheck, Controllers.menu.addItem)
+
 export default router

@@ -19,15 +19,28 @@ export const useGetById = (args?: string) => {
   })
 }
 
-export const useUpdateById = (args: Core.I.MenuInfo & Core.I.Entity) => {
+export const useUpdateById = () => {
   const client = Query.useQueryClient()
 
   return Query.useMutation({
-    mutationFn: () => Api.menu.updateById(args),
-    onSuccess(data) {
+    mutationFn: Api.menu.updateById,
+    onSuccess: (data) => {
       client.invalidateQueries({
         queryKey: ['menu', data?.id]
       })
     },
+  })
+}
+
+export const useAddItem = () => {
+  const client = Query.useQueryClient()
+
+  return Query.useMutation({
+    mutationFn: Api.menu.addItem,
+    onSuccess: (data) => {
+      client.invalidateQueries({
+        queryKey: ['menu', data?.id]
+      })
+    }
   })
 }

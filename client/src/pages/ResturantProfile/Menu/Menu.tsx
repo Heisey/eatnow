@@ -27,13 +27,16 @@ const Menu: React.FC<MenuProps> = (props) => {
 
   if (auth.isLoading || user.isLoading || resturant.isLoading || menu.isLoading || menuItems.isLoading) return <div>Loading</div>
   
-  const columnConfig = ReactTable.createColumnHelper<Core.I.MenuItemRecord>()
+  const columnConfig = ReactTable.createColumnHelper<Core.I.MenuRecord>()
+
+  const categories = Object.values(Core.keys.menuCategories) as [keyof typeof Core.keys.menuCategories]
 
   const columns = [
-    columnConfig.accessor('image', { header: '', cell: dataSet => <img src={dataSet.getValue()} className='h-75 w-auto' /> }),
-    columnConfig.accessor('name', { header: 'name', cell: dataSet => Utils.string.capitalizeAllWords(dataSet.getValue()) }),
+    // columnConfig.accessor('image', { header: '', cell: dataSet => <img src={dataSet.getValue()} className='h-75 w-auto' /> }),
+    columnConfig.accessor('appetizers.name', { header: 'name', cell: dataSet => dataSet.getValue() }),
   ]
 
+  console.log('puppy menu,' , menu.data)
   return (
     <div>
       <Dialog open={addItemOpen}>
@@ -45,8 +48,8 @@ const Menu: React.FC<MenuProps> = (props) => {
           </div>
         )}
         {menu.data && <Table data={menu.data} columns={columns} />}
-        <AddItem />
-      </Dialog>
+        <AddItem categories={categories} closeModal={toggleAddItemOpen} />
+      </Dialog> 
     </div>
     
   )

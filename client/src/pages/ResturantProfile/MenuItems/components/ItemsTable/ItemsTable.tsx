@@ -37,11 +37,14 @@ const ItemsTable: React.FC<TableProps> = (props) => {
         <TableBody>
           {table.getRowModel().rows.map(row => (
             <TableRow key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>
-                  {ReactTable.flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
+              {row.getVisibleCells().map(cell => {
+                console.log('puppy testing, ', cell.column.columnDef.cell)
+                return (
+                  <TableCell key={cell.id}>
+                    {ReactTable.flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                )
+              })}
             </TableRow>
           ))}
         </TableBody>
