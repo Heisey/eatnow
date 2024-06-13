@@ -27,16 +27,18 @@ const AddItem: React.FC<AddItemProps> = (props) => {
   const menu = Hooks.menu.useGetById(resturant.data?.menuId)
   const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
   const updateMenu = Hooks.menu.useUpdateById()
+  const addItemToMenu = Hooks.menu.useAddItem()
   const [itemSelectOpen, toggleItemSelectOpen] = Hooks.common.useToggle()
   const [menuItemSelected, menuItemSelectedHandler] = React.useState<string>('')
   const [categorySelected, categorySelectedHandler] = React.useState<Categories>(props.categories[0])
 
   const onSave = async () => {
     if (!menu.data) return
-    const oldMenuSection = menu.data[categorySelected]
-    const menuItem = menuItems.data?.filter(dataSet => dataSet.id === menuItemSelected)[0]
-    const updatedMenu: Core.I.MenuInfo = { ...menu.data, [categorySelected]: oldMenuSection ? [ ...oldMenuSection, menuItem] : [menuItem]}
-    await updateMenu.mutateAsync({ ...updatedMenu, id: menu.data.id })
+    await addItemToMenu.mutateAsync({ menuId: menu.data.id, category: categorySelected, menuItemId: menuItemSelected })
+    // const oldMenuSection = menu.data[categorySelected]
+    // const menuItem = menuItems.data?.filter(dataSet => dataSet.id === menuItemSelected)[0]
+    // const updatedMenu: Core.I.MenuInfo = { ...menu.data, [categorySelected]: oldMenuSection ? [ ...oldMenuSection, menuItem] : [menuItem]}
+    // await updateMenu.mutateAsync({ ...updatedMenu, id: menu.data.id })
     menu.refetch()
     props.closeModal()
   }

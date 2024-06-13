@@ -2,12 +2,17 @@
 import express from 'express'
 
 import * as I from '../interfaces'
+import * as Keys from '../keys'
 import * as Models from '../models'
 
 export const getById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  try {
-    const records = await Models.Menu.findById(req.params.id)
+  try {    
+    const categories = Object.values(Keys.menuCategories) 
     
+    const records = await Models.Menu.findById(req.params.id).populate(categories)
+
+    if (!records) return res.status(404).json({ message: 'no records found' })
+
     return res.status(200).json({ records })
   } catch(err) {
     console.log(err)
@@ -27,7 +32,7 @@ export const updateById = async (req: express.Request, res: express.Response, ne
     delete data.id
 
     categories.map(category => {
-      if (data[category][0] === null) return
+      if (data[category][0] === null) return []
       data[category] = data[category].map((record: I.MenuItemRecord) => record.id)
     })
     
@@ -46,7 +51,7 @@ export const addItem = async (req: express.Request, res: express.Response, next:
   try {
     const category = req.body.category as keyof I.MenuInfo
     
-    const records = await Models.Menu.updateOne({ id: req.params.id }, { $addToSet: { [category]: req.body.menuItemId }})
+    const records = await Models.Menu.updateOne({ _id: req.params.id }, { $addToSet: { [category]: req.body.menuItemId }})
 
     res.status(204).json({ records })
   } catch(err) {

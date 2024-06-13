@@ -27,3 +27,4 @@ export const useGetById = (args?: string) => Query.useQuery({
   enabled: !!args,
   queryFn: () => Api.resturant.getById(args!)
 })
+
