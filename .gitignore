@@ -33,3 +33,5 @@ server/package-lock.json
 *.njsproj
 *.sln
 *.sw?
+
+sources.md
