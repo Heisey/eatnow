@@ -5,11 +5,13 @@
   "main": "src/main.ts",
   "scripts": {
     "start": "nodemon",
-    "db": "sudo mongod --dbpath=/Users/justinheisler/data/db"
+    "clear_db": "nodemon ./src/database/clearData.ts"
   },
   "author": "Heisey",
   "license": "ISC",
   "dependencies": {
+    "auth0": "^4.5.0",
+    "casual": "^1.6.2",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",

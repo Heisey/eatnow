@@ -6,8 +6,8 @@ import cors from 'cors'
 import express from 'express'
 import helmut from 'helmet'
 import morgan from 'morgan'
-import mongoose from 'mongoose'
 
+import * as db from './database'
 import * as router from './router'
 
 const PORT = parseInt(process.env.SERVER_PORT as string)
@@ -23,6 +23,10 @@ app.use('/api/v1/menu', router.menu)
 app.use('/api/v1/resturants', router.resturants)
 app.use('/api/v1/user', router.user)
 
-app.listen(PORT, () => console.log(`${chalk.blue.bold('Server started on port')} ${chalk.yellowBright.bold(PORT)}`))
+const start = async () => {
 
-mongoose.connect(process.env.DB_CONNECTION_STRING as string).then(() => console.log(`${chalk.blue.bold('Database started successfully')} `))
+  app.listen(PORT, () => console.log(`${chalk.blue.bold('Server started on port')} ${chalk.yellowBright.bold(PORT)}`))
+  await db.connection()
+}
+
+start()

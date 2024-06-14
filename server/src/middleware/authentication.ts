@@ -6,3 +6,4 @@ export const jwtCheck = Bearer.auth({
   issuerBaseURL: process.env.AUTH_ISSUER_BASE_URL,
   tokenSigningAlg: process.env.AUTH_TOKEN_SIGNING_ALG
 })
+
