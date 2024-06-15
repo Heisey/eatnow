@@ -17,7 +17,7 @@ export interface MobileNavProps extends React.PropsWithChildren {
 const MobileNav: React.FC<MobileNavProps> = () => {
   const auth = Hooks.common.useAuth()
 
-  const onSignin = async () => auth.loginWithRedirect()
+  const onSignin = async () => auth.loginWithPopup()
 
   const renderWelcome = () => <span>Welcome to EatNow</span>
 
@@ -35,13 +35,13 @@ const MobileNav: React.FC<MobileNavProps> = () => {
     </SheetTrigger>
     <SheetContent className='space-y-3 flex flex-col'>
       <SheetTitle>
-        {auth.isAuthenticated ? renderUser() : renderWelcome()}
+        {auth.user ? renderUser() : renderWelcome()}
       </SheetTitle>
       <Separator />
       <SheetDescription className='flex flex-col flex-1 gap-4'>
         <Router.Link to='/user-profile' className='flex bg-white items-center font-bold hover:text-orange-500'>User Profile</Router.Link>
-        {auth.isAuthenticated && <Button onClick={() => auth.logout()} className='flex items-center px-3 font-bold hover:bg-gray-500 mt-auto'>Logout</Button>}
-        {!auth.isAuthenticated && <Button onClick={onSignin} className='font-bold bg-orange-500 mt-auto'>Log In</Button>}
+        {auth.user && <Button onClick={() => auth.logOut()} className='flex items-center px-3 font-bold hover:bg-gray-500 mt-auto'>Logout</Button>}
+        {!auth.user && <Button onClick={onSignin} className='font-bold bg-orange-500 mt-auto'>Log In</Button>}
       </SheetDescription>
     </SheetContent>
   </Sheet>

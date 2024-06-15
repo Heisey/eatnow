@@ -21,7 +21,7 @@ const UserMenu: React.FC<UserMenuProps> = () => {
   const auth = Hooks.common.useAuth()
 
   const logout = () => {
-    auth.logout()
+    auth.logOut()
     Cookie.remove('etnw_auth')
   }
 

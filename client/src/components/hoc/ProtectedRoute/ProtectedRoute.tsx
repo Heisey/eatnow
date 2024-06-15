@@ -15,7 +15,7 @@ export default function ProtectedRoute<T extends {}>(Component: React.FC<T>){
   return function(props: T) {
     const auth = Hooks.common.useAuth()
 
-    if (!auth.isAuthenticated) return <Router.Navigate to='/' replace />
+    if (!auth.user) return <Router.Navigate to='/' replace />
 
     return <Component { ...props} />
   }

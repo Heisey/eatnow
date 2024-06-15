@@ -16,7 +16,7 @@ export interface NavProps extends React.PropsWithChildren {
 const Nav: React.FC<NavProps> = () => {
   const auth = Hooks.common.useAuth()
 
-  const onRedirect = async () => auth.loginWithRedirect()
+  const onRedirect = async () => await auth.loginWithPopup()
 
   const renderSignIn = () => (
     <Button onClick={onRedirect} variant='ghost' className='font-bold hover:text-orange-500 hover:bg-white'>
@@ -32,7 +32,7 @@ const Nav: React.FC<NavProps> = () => {
 
  return (
   <>
-    {!auth.isAuthenticated ? renderSignIn() : renderUser()}
+    {!auth.user ? renderSignIn() : renderUser()}
     
   </>
  )

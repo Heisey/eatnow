@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 
-import * as CtxApp from './'
+import * as CtxApp from './Context'
 
 export const useContext = () => {
   let context = React.useContext(CtxApp.Context)
