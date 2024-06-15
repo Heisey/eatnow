@@ -5,7 +5,7 @@
   "main": "src/main.ts",
   "scripts": {
     "start": "nodemon",
-    "clear_db": "nodemon ./src/database/clearData.ts"
+    "seed_db": "nodemon ./src/database/seed.ts"
   },
   "author": "Heisey",
   "license": "ISC",
