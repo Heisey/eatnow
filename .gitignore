@@ -21,7 +21,7 @@ client/.env
 server/node_modules
 server/.env
 server/package-lock.json
-
+server/firebase/config.json
 
 # Editor
 .vscode/*

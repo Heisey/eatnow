@@ -15,4 +15,5 @@ const instance = firebase.initializeApp(config)
 
 export const auth = firebaseAuth.getAuth(instance)
 
+// export const emailProvider = new firebaseAuth.EmailAuthProvider()
 export const googleProvider = new firebaseAuth.GoogleAuthProvider()

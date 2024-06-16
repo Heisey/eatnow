@@ -8,13 +8,13 @@ import * as CtxApp from './'
 
 const Provider: React.FC<React.PropsWithChildren> = (props) => {
 
-  const [loginModalShow, toggleLoginModalShow] = Hooks.common.useToggle(false)
-  
+  const [createNew, toggleCreateNew] = Hooks.common.useToggle()
+
   return (
     <CtxApp.Context.Provider
       value={{
-        loginModalShow,
-        toggleLoginModalShow
+        createNew,
+        toggleCreateNew
       }}
     >
       {props.children}

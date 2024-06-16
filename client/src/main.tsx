@@ -10,12 +10,12 @@ import QueryProvider from '@/components/providers/Query'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AuthProvider>
       <Router.BrowserRouter>
         <QueryProvider>
+    <AuthProvider>
           <App />
+    </AuthProvider>
         </QueryProvider>
       </Router.BrowserRouter>
-    </AuthProvider>
   </React.StrictMode>,
 )

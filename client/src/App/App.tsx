@@ -11,14 +11,20 @@ import ResturantProfileMenu from '@/pages/ResturantProfile/Menu'
 import ResturantProfileMenuItems from '@/pages/ResturantProfile/MenuItems'
 import ResturantProfileOutlet from '@/pages/ResturantProfile/Outlet/Outlet'
 import ResturantProfileOverview from '@/pages/ResturantProfile/Overview'
+
+import LoginModal from '@/pages/Modals/Login'
+
 import { Toaster } from 'sonner'
 
+// import * as Ctx from './context'
 import Standard from './template/Standard'
 
 import './globals.css'
 
 const App: React.FC = () => {
   
+  // const appCtx = Ctx.useContext()
+
   return (
     <div>
       <Router.Routes>
@@ -37,6 +43,9 @@ const App: React.FC = () => {
 
         <Router.Route path='*' element={<Router.Navigate to='/' />} />
       </Router.Routes>
+
+      <LoginModal />
+
       <Toaster visibleToasts={1} position='top-right' richColors />
     </div>
   )
