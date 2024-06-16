@@ -17,7 +17,7 @@ export interface MobileNavProps extends React.PropsWithChildren {
 const MobileNav: React.FC<MobileNavProps> = () => {
   const auth = Hooks.common.useAuth()
 
-  const onSignin = async () => auth.loginWithPopup()
+  const onSignin = async () => auth.loginWithGoogle()
 
   const renderWelcome = () => <span>Welcome to EatNow</span>
 

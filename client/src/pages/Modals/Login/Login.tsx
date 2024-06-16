@@ -15,7 +15,7 @@ export interface LoginProps extends React.PropsWithChildren {
 }
 
 
-const Login: React.FC<LoginProps> = (props) => {
+const Login: React.FC<LoginProps> = () => {
 
   const appCtx = App.Ctx.useContext()
   const loginCtx = Context.useContext()

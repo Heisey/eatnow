@@ -26,7 +26,6 @@ const AddItem: React.FC<AddItemProps> = (props) => {
   const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
   const menu = Hooks.menu.useGetById(resturant.data?.menuId)
   const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
-  const updateMenu = Hooks.menu.useUpdateById()
   const addItemToMenu = Hooks.menu.useAddItem()
   const [itemSelectOpen, toggleItemSelectOpen] = Hooks.common.useToggle()
   const [menuItemSelected, menuItemSelectedHandler] = React.useState<string>('')
@@ -35,10 +34,6 @@ const AddItem: React.FC<AddItemProps> = (props) => {
   const onSave = async () => {
     if (!menu.data) return
     await addItemToMenu.mutateAsync({ menuId: menu.data.id, category: categorySelected, menuItemId: menuItemSelected })
-    // const oldMenuSection = menu.data[categorySelected]
-    // const menuItem = menuItems.data?.filter(dataSet => dataSet.id === menuItemSelected)[0]
-    // const updatedMenu: Core.I.MenuInfo = { ...menu.data, [categorySelected]: oldMenuSection ? [ ...oldMenuSection, menuItem] : [menuItem]}
-    // await updateMenu.mutateAsync({ ...updatedMenu, id: menu.data.id })
     menu.refetch()
     props.closeModal()
   }
@@ -49,7 +44,7 @@ const AddItem: React.FC<AddItemProps> = (props) => {
     <DialogContent>
       <div>
         <h2>Category</h2>
-        <RadioGroup defaultValue={categorySelected} className='flex justify-between' onValueChange={dataSet => categorySelectedHandler(dataSet)}>
+        <RadioGroup defaultValue={categorySelected} className='flex justify-between' onValueChange={dataSet => categorySelectedHandler(dataSet as Categories)}>
           {props.categories.map(dataSet => (
             <div className='flex align-center justify-center'>
               <RadioGroupItem value={dataSet} id={dataSet} className='mr-2'  />

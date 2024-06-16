@@ -2,7 +2,6 @@
 import * as Query from '@tanstack/react-query'
 
 import * as Api from '@/api'
-import * as Core from '@/core'
 
 export const useGetAllByResturantId = (args?: string) => Query.useQuery({
   queryKey: ['menu_items', args],

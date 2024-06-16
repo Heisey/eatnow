@@ -4,7 +4,6 @@ import * as Router from 'react-router-dom'
 
 import * as Core from '@/core'
 import Landing from '@/pages/Landing'
-import LoginRedirect from '@/pages/LoginRedirect'
 import UserProfile from '@/pages/UserProfile'
 import ResturantProfileDetails from '@/pages/ResturantProfile/Details'
 import ResturantProfileMenu from '@/pages/ResturantProfile/Menu'
@@ -38,8 +37,6 @@ const App: React.FC = () => {
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS} element={<ResturantProfileMenuItems />} />
           </Router.Route>
         </Router.Route>
-
-        <Router.Route path={Core.keys.paths.REDIRECT_LOGIN} element={<LoginRedirect />} />
 
         <Router.Route path='*' element={<Router.Navigate to='/' />} />
       </Router.Routes>

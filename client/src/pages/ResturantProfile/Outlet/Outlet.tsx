@@ -11,7 +11,7 @@ export interface ResturantProfileProps extends React.PropsWithChildren {
 }
 
 
-const ResturantProfile: React.FC<ResturantProfileProps> = (props) => {
+const ResturantProfile: React.FC<ResturantProfileProps> = () => {
 
   return (
     <div className='flex'>

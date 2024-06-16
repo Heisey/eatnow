@@ -28,7 +28,7 @@ export const useLogin = () => {
   })
 }
 
-export const useGetUserByEmail = (args?: string) => Query.useQuery({
+export const useGetUserByEmail = (args?: string | null) => Query.useQuery({
   queryKey: ['user', args],
   enabled: !!args,
   queryFn: () => Api.user.getByEmail(args!)

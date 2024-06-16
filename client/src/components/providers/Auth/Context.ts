@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as firebaseAuth from 'firebase/auth'
 
 interface AuthContext {
-  loading: boolean
+  isLoading: boolean
   loginWithGoogle: () => Promise<void>
   logOut: () => void
   user?: firebaseAuth.User

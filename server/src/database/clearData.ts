@@ -12,11 +12,6 @@ export const clearData = async () => {
   const database = dbConnect.connection.db
   const users = (await Models.User.find()).map(dataSet => dataSet.firebaseId)
 
-  // for (let i = 0; i < users.length / 100; i++) {
-  //   const index = i * 100
-  //   const group = users.slice(index, index + 100)
-  //   }
-
   if (users[0]) {
     console.log(chalk.magenta.bold('Remove Firebase users'))
     Services.firebase.auth.deleteUsers(users)

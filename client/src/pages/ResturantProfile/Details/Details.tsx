@@ -26,7 +26,7 @@ interface RenderField {
   type?: 'string' | 'number'
 }
 
-const Details: React.FC<DetailsProps> = (props) => {
+const Details: React.FC<DetailsProps> = () => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)

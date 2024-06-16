@@ -13,7 +13,7 @@ export interface NewUserProps extends React.PropsWithChildren {
 }
 
 
-const NewUser: React.FC<NewUserProps> = (props) => {
+const NewUser: React.FC<NewUserProps> = () => {
 
   const loginCtx = Ctx.useContext()
 

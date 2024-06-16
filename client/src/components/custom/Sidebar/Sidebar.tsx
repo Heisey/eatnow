@@ -10,11 +10,10 @@ import { Button } from '@/components/ui/button'
 
 export interface SidebarProps extends React.PropsWithChildren {
 
-
 }
 
 
-const Sidebar: React.FC<SidebarProps> = (props) => {
+const Sidebar: React.FC<SidebarProps> = () => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
