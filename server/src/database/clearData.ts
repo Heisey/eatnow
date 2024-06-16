@@ -1,42 +1,32 @@
 
-const auth0 = require('auth0')
+import chalk from 'chalk'
 
-import * as db from '.'
-
-
+import * as DB from '.'
+import * as Models from '../models'
+import * as Services from '../services'
 
 export const clearData = async () => {
-  const dbConnect = await db.connection()
-
+  const dbConnect = await DB.connection()
+  console.log(chalk.magenta.bold('Start Database purge'))
+  
   const database = dbConnect.connection.db
+  const users = (await Models.User.find()).map(dataSet => dataSet.firebaseId)
 
+  // for (let i = 0; i < users.length / 100; i++) {
+  //   const index = i * 100
+  //   const group = users.slice(index, index + 100)
+  //   }
+
+  if (users[0]) {
+    console.log(chalk.magenta.bold('Remove Firebase users'))
+    Services.firebase.auth.deleteUsers(users)
+  }
+
+  console.log(chalk.magenta.bold('Remove Collections users'))
   const collections = await database.listCollections().toArray()
 
-  const client = await new auth0.ManagementClient({
-    domain: process.env.AUTH_DOMAIN as string,
-    clientId: process.env.CLIENT_ID as string,
-    clientSecret: process.env.AUTH_SECRET as string,
-    scope: 'read:users'
-  })
-
-  // console.log('puppy client, ', client)
-  // const authUsers = await client.users.getAll()
-
-  console.log('puppy uses, ', await client.users.getAll())
-  // // @ts-ignore
-  // authUsers.data.map(user => client.users.delete(user.user_id))
   collections
     .map(dataSet => dataSet.name)
     .forEach(async (dataSet) => await database.dropCollection(dataSet))
-
-  // const auth = new auth0.ManagementClient({
-  //   domain: process.env.AUTH_DOMAIN as string,
-  //   // clientId: process.env.CLIENT_ID as string
-  //   clientId: process.env.CLIENT_ID as string,
-  //   // clientAssertionSigningKey
-  // })
-  
-  // const authUser = auth.users.getAll()
-
-  // console.log('puppy auth, ', authUser)
+    console.log(chalk.magenta.bold('Finish Database purge'))
 }

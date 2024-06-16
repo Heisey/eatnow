@@ -4,11 +4,6 @@ import mongoose from "mongoose";
 import * as I from '../interfaces'
 
 const UserSchema = new mongoose.Schema<I.UserRecord>({
-  auth0id: {
-    type: String,
-    require: true,
-    unique: true
-  },
   email: {
     type: String,
     require: true,
@@ -30,6 +25,11 @@ const UserSchema = new mongoose.Schema<I.UserRecord>({
   resturantId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resturant'
+  },
+  firebaseId: {
+    type: String,
+    required: true,
+    unique: true
   }
 }, {
   timestamps: true

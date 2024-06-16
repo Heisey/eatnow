@@ -2,11 +2,12 @@
 import express from 'express'
 
 import * as Models from '../models'
+import * as Services from '../services'
 
 export const createUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
   try {
-    if (!req.body.auth0id) return res.status(500).json({ status: 'failed', err: 'invalid credentials' })
+    if (!req.body.firebaseId) return res.status(500).json({ status: 'failed', err: 'invalid credentials' })
       
     const user = await Models.User.findOne({ auth0Id: req.body.auth0id })
 
@@ -84,8 +85,10 @@ export const loginUser = async (req: express.Request, res: express.Response, nex
     let user = await Models.User.findOne({ email: req.body.email })
 
     if (user) return res.status(200).json({ records: user })
-
-    const newUser = await new Models.User({ ...req.body }).save()
+      
+    const firebaseUser = await Services.firebase.auth.getUserByEmail(req.body.email)
+    console.log('puppy, ', firebaseUser.uid)
+    const newUser = await new Models.User({ ...req.body, firebaseId: firebaseUser.uid }).save()
     
     if (!newUser) return res.status(500).json({ message: 'failed to create user' })
 
