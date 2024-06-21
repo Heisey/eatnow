@@ -81,7 +81,7 @@ const UserProfile: React.FC<UserProfileProps> = () => {
 
   const onSave = (args: Core.I.UserEntityInfo) => {
     
-    updateUser.mutateAsync({ ...args, id: user.data?.id })
+    updateUser.mutateAsync({ ...args, id: user.data?.id! })
   }
 
   return (

@@ -5,6 +5,9 @@ import * as Router from 'react-router-dom'
 import * as Core from '@/core'
 import Landing from '@/pages/Landing'
 import UserProfile from '@/pages/UserProfile'
+
+import ResturantsOutlet from '@/pages/Resturants/Outlet'
+
 import ResturantProfileDetails from '@/pages/ResturantProfile/Details'
 import ResturantProfileMenu from '@/pages/ResturantProfile/Menu'
 import ResturantProfileMenuItems from '@/pages/ResturantProfile/MenuItems'
@@ -30,6 +33,9 @@ const App: React.FC = () => {
         <Router.Route path='/' element={<Standard />}>
           <Router.Route path='/' index element={<Landing />} />
           <Router.Route path={Core.keys.paths.USER_PROFILE} element={<UserProfile />} />
+
+          <Router.Route path={Core.keys.paths.RESTURANTS} element={<ResturantsOutlet />}
+
           <Router.Route path={Core.keys.paths.RESTURANT_PROFILE} element={<ResturantProfileOutlet />}>
             <Router.Route index path={Core.keys.paths.RESTURANT_PROFILE_OVERVIEW} element={<ResturantProfileOverview />} />
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_DETAILS} element={<ResturantProfileDetails />} />

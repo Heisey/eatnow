@@ -8,10 +8,10 @@ const router = express.Router()
 
 router.use(Middleware.auth.jwtCheck)
 
-router.post('/', Controllers.resturant.create)
+router.post('/', Controllers.resturantProfile.create)
 
 router.post('/menuItems', Controllers.menuItem.create)
 
-router.get('/:id', Controllers.resturant.getById)
+router.get('/:id', Controllers.resturantProfile.getById)
 
 export default router

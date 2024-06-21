@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(helmut())
 
 app.use('/api/v1/menu', router.menu)
-app.use('/api/v1/resturants', router.resturants)
+app.use('/api/v1/resturant_profile', router.resturantProfile)
 app.use('/api/v1/user', router.user)
 
 const start = async () => {
