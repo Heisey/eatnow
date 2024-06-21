@@ -39,14 +39,11 @@ const MenuTable: React.FC<MenuTableProps> = (props) => {
         <TableBody>
           {table.getRowModel().rows.map(row => (
             <TableRow id={row.id}>
-              {row.getVisibleCells().map(cell => {
-                console.log('puppy cell, ', cell.getValue())
-                return (
-                  <TableCell key={cell.id} className={`max-w-[50px]`}>
-                    {ReactTable.flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                )
-              })}
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id} className={`max-w-[50px]`}>
+                  {ReactTable.flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
             </TableRow>
           ))}
         </TableBody>

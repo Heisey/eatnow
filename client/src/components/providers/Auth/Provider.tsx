@@ -2,7 +2,9 @@
 import Cookie from 'js-cookie'
 import * as firebaseAuth from 'firebase/auth'
 import * as React from 'react'
+import * as Query from '@tanstack/react-query'
 
+import * as Api from '@/api'
 import * as Hooks from '@/hooks'
 import * as Services from '@/services'
 
@@ -10,8 +12,8 @@ import * as CtxApp from './Context'
 
 const Provider: React.FC<React.PropsWithChildren> = (props) => {
   
+  const client = Query.useQueryClient()
   const [user, userHandler] = React.useState<firebaseAuth.User | undefined>(undefined)
-  const loginUser = Hooks.user.useLogin()
   const [isLoading, isLoadingHandler] = React.useState(true);
 
   const setToken = async (args?: string) => {
@@ -22,9 +24,11 @@ const Provider: React.FC<React.PropsWithChildren> = (props) => {
 
   const clearToken = () => Cookie.remove('etnw_auth')
 
-  const logOut = () => {
+  const logOut = async () => {
     isLoadingHandler(true);
-    return firebaseAuth.signOut(Services.firebase.auth).then(clearToken);
+    userHandler(undefined)
+    Cookie.remove('etnw_auth')
+    await firebaseAuth.signOut(Services.firebase.auth).then(clearToken);
   };
 
   const loginWithGoogle = async () => {
@@ -33,7 +37,11 @@ const Provider: React.FC<React.PropsWithChildren> = (props) => {
     setToken(tokenResult?.token)
     const email = firebaseUser?.user.email
     if (!email) return
-    loginUser.mutateAsync({ email })
+    const userRes = await Api.user.login({ email })
+    if (!userRes?.id) return
+    client.invalidateQueries({
+      queryKey: ['user', email]
+    })
   }
 
   React.useEffect(() => {

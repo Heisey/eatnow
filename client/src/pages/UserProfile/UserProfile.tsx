@@ -17,7 +17,7 @@ export interface UserProfileProps extends React.PropsWithChildren {
 
 }
 
-interface UserInfoForm extends Core.I.UserInfo, Omit<Core.I.Credentials, 'auth0id'> {}
+interface UserInfoForm extends Core.I.UserInfo, Omit<Core.I.Credentials, 'firebaseId'> {}
 
 type FormFields = keyof UserInfoForm
 
@@ -26,27 +26,32 @@ const UserProfile: React.FC<UserProfileProps> = () => {
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
   const updateUser = Hooks.user.useUpdateById()
-
+  
   const form = Hooks.common.useForm<Validate.UserProfileValidate>({ 
     resolver: ZHook.zodResolver(Validate.userProfile),
     defaultValues: {
       email: user.data?.email || '',
-      name: '',
-      address: '',
-      city: '',
-      country: '',
-      id: ''
+      name: user.data?.name || '',
+      address: user.data?.address || '',
+      city: user.data?.city || '',
+      country: user.data?.country || '',
+      id: user.data?.country || ''
     }
   })
 
+  if (user.isLoading || auth.isLoading) return <div>is Loading</div>
+
+  if (!user.data?.id && !user.isLoading) return <div>failed to load user</div>
+
   // Load Form with values from server
-  React.useEffect(() => {
-    if (!form.getValues('id') && user.data?.id) form.reset((dataSet) => ({ ...dataSet, ...user.data }))
-  }, [user.data?.id])
+  // React.useEffect(() => {
+  //   if (!form.getValues('id') && user.data?.id) form.reset((dataSet) => ({ ...dataSet, ...user.data }))
+  // }, [user.data?.id])
 
   // Shows toast notification on success
   React.useEffect(() => {
-    if (form.formState.isSubmitSuccessful) Sonner.toast.success('User Profile Updated')
+    if (updateUser.isSuccess) Sonner.toast.success('User Profile Updated')
+    else if (updateUser.isError) Sonner.toast.error('Something went wrong')
   }, [form.formState.isSubmitSuccessful])
 
   const renderField = (field: FormFields, disabled?: boolean) => (
@@ -68,23 +73,15 @@ const UserProfile: React.FC<UserProfileProps> = () => {
 
   const loadingButtonClassName = () => {
     let result = ''
-    if (updateUser.isLoading) result = `${result} bg-organge-500`
-    return result
-  }
-  const buttonDisabled = () => {
-    let result = true
-    const values = Object.values(form.formState.touchedFields)
-    values.map(dataSet => {
-      if (dataSet) result = false
-    })
+    if (updateUser.isPending) result = `${result} bg-organge-500`
     return result
   }
 
-  const loadingButtonText = () => updateUser.isLoading ? 'Loading' : 'Submit'
+  const loadingButtonText = () => updateUser.isPending ? 'Loading' : 'Submit'
 
   const onSave = (args: Core.I.UserEntityInfo) => {
     
-    updateUser.mutateAsync(args)
+    updateUser.mutateAsync({ ...args, id: user.data?.id })
   }
 
   return (
@@ -101,7 +98,7 @@ const UserProfile: React.FC<UserProfileProps> = () => {
             {renderField('city')}
             {renderField('country')}
           </div>
-          <LoadingButton className={loadingButtonClassName()} disabled={buttonDisabled()} type='submit'>{loadingButtonText()}</LoadingButton>
+          <LoadingButton className={loadingButtonClassName()} disabled={!form.formState.isValid} type='submit'>{loadingButtonText()}</LoadingButton>
         </form>
       </Form>
     </div>

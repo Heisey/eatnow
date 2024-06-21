@@ -22,7 +22,6 @@ const UserMenu: React.FC<UserMenuProps> = () => {
 
   const logout = () => {
     auth.logOut()
-    Cookie.remove('etnw_auth')
   }
 
  return (
@@ -47,7 +46,7 @@ const UserMenu: React.FC<UserMenuProps> = () => {
       <Separator />
 
       <DropdownMenuItem>
-        <Button onClick={logout} className='flex flex-1 font-bold bg-orange-500'>
+        <Button onClick={auth.logOut} className='flex flex-1 font-bold bg-orange-500'>
           Logout
         </Button>
       </DropdownMenuItem>

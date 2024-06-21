@@ -14,7 +14,6 @@ export const userProfile: Validator.z.ZodType<UserValidation> = Validator.z.obje
   address: Validator.z.string().min(1, 'adress is required'),
   city: Validator.z.string().min(1, 'city is required'),
   country: Validator.z.string().min(1, 'country is required'),
-  auth0id: Validator.z.string()
 })
 
 export type UserProfileValidate = Validator.z.infer<typeof userProfile>

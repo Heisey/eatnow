@@ -24,6 +24,14 @@ export const getUser = Utils.catchAsync(async (req, res, next) => {
   res.status(200).json({ records })
 })
 
+export const getByEmail = Utils.catchAsync(async (req, res, next) => {
+  const records = await Models.User.findOne({ email: req.params.email })
+
+  if (!records) return res.status(404).json({ message: 'Could not find record' })
+  
+  res.status(200).json({ records })
+})
+
 export const updateUser = Utils.catchAsync(async (req, res, next) => {
   const user = await Models.User.findById(req.params.id)
 

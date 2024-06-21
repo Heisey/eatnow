@@ -6,7 +6,7 @@ import * as Services from '../services'
 export const jwtCheck = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
     const token = req.header('Authorization')?.split(' ')[1]
-    
+
     if (!token) return res.status(401).json({ message: 'Unauthorized' })
     
     const decoded = await Services.firebase.auth.verifyIdToken(token)

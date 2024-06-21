@@ -15,9 +15,10 @@ export interface NavProps extends React.PropsWithChildren {
 
 const Nav: React.FC<NavProps> = () => {
   const auth = Hooks.common.useAuth()
+  const user = Hooks.user.useGetUserByEmail(auth.user?.email)
   
   const renderSignIn = () => (
-    <Button onClick={auth.loginWithGoogle} variant='ghost' className='font-bold hover:text-orange-500 hover:bg-white'>
+    <Button onClick={async () => await auth.loginWithGoogle()} variant='ghost' className='font-bold hover:text-orange-500 hover:bg-white'>
       Login
     </Button>
   )
@@ -30,7 +31,7 @@ const Nav: React.FC<NavProps> = () => {
 
  return (
   <>
-    {!auth.user ? renderSignIn() : renderUser()}
+    {!auth.user && !user.data?.id ? renderSignIn() : renderUser()}
     
   </>
  )
