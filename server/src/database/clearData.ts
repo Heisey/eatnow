@@ -10,11 +10,13 @@ export const clearData = async () => {
   console.log(chalk.magenta.bold('Start Database purge'))
   
   const database = dbConnect.connection.db
-  const users = (await Models.User.find()).map(dataSet => dataSet.firebaseId)
 
-  if (users[0]) {
-    console.log(chalk.magenta.bold('Remove Firebase users'))
-    Services.firebase.auth.deleteUsers(users)
+  console.log(chalk.magenta.bold('Remove Firebase user sets'))
+  let firebaseUsers = await Services.firebase.auth.listUsers(1000)
+
+  while (firebaseUsers.users.length > 0) {
+    await Services.firebase.auth.deleteUsers(firebaseUsers.users.map(dataSet => dataSet.uid))
+    firebaseUsers = await Services.firebase.auth.listUsers(1000)
   }
 
   console.log(chalk.magenta.bold('Remove Collections users'))
