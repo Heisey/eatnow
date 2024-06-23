@@ -23,7 +23,7 @@ const AddItem: React.FC<AddItemProps> = (props) => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
-  const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
+  const resturant = Hooks.resturantProfile.useGetById(user.data?.resturantId)
   const menu = Hooks.menu.useGetById(resturant.data?.menuId)
   const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
   const addItemToMenu = Hooks.menu.useAddItem()

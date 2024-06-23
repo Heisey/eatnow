@@ -2,7 +2,6 @@
 import * as Models  from '../models'
 import * as Utils from '../utilities'
 
-
 export const getByCity = Utils.catchAsync(async (req, res, next) => {
   const name = req.query.name as string 
   const cuisines = req.query.cuisines as string

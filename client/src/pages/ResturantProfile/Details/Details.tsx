@@ -30,8 +30,8 @@ const Details: React.FC<DetailsProps> = () => {
 
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
-  const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
-  const createResturant = Hooks.resturant.useCreate()
+  const resturant = Hooks.resturantProfile.useGetById(user.data?.resturantId)
+  const createResturant = Hooks.resturantProfile.useCreate()
   const logoImage = Hooks.common.useImagePreview(null)
   const navigate = Hooks.common.useNavigate()
 

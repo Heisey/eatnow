@@ -13,6 +13,8 @@ export type { MenuItemInfo } from './MenuItemInfo'
 
 export type { MenuItemRecord } from './MenuItemRecord'
 
+export type { Pagination } from './Pagination'
+
 export type { Record } from './Record'
 
 export type { ResturantInfo } from './ResturantInfo'

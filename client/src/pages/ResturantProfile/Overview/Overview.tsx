@@ -16,7 +16,7 @@ const Overview: React.FC<OverviewProps> = (props) => {
   
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
-  const resturant = Hooks.resturant.useGetById(user.data?.resturantId)
+  const resturant = Hooks.resturantProfile.useGetById(user.data?.resturantId)
   const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
   
   if (user.isLoading || resturant.isLoading) return <div>Loading</div>

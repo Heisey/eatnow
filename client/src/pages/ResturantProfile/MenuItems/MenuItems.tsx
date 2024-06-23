@@ -26,7 +26,7 @@ const MenuItems: React.FC<MenuItemsProps> = (props) => {
   const auth = Hooks.common.useAuth()
   const user = Hooks.user.useGetUserByEmail(auth.user?.email)
   const menuItems = Hooks.menu.useGetAllByResturantId(user.data?.resturantId)
-  const createMenuItem = Hooks.resturant.useCreateMenuItem()
+  const createMenuItem = Hooks.resturantProfile.useCreateMenuItem()
   const [showInput, toggleShowInput] = Hooks.common.useToggle()
   const logoImage = Hooks.common.useImagePreview(null)
 
