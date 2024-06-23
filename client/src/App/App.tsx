@@ -18,14 +18,11 @@ import LoginModal from '@/pages/Modals/Login'
 
 import { Toaster } from 'sonner'
 
-// import * as Ctx from './context'
 import Standard from './template/Standard'
 
 import './globals.css'
 
 const App: React.FC = () => {
-  
-  // const appCtx = Ctx.useContext()
 
   return (
     <div>
@@ -34,7 +31,7 @@ const App: React.FC = () => {
           <Router.Route path='/' index element={<Landing />} />
           <Router.Route path={Core.keys.paths.USER_PROFILE} element={<UserProfile />} />
 
-          <Router.Route path={Core.keys.paths.RESTURANTS} element={<ResturantsOutlet />}
+          <Router.Route path={Core.keys.paths.RESTURANTS} element={<ResturantsOutlet />} />
 
           <Router.Route path={Core.keys.paths.RESTURANT_PROFILE} element={<ResturantProfileOutlet />}>
             <Router.Route index path={Core.keys.paths.RESTURANT_PROFILE_OVERVIEW} element={<ResturantProfileOverview />} />
