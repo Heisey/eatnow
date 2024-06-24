@@ -8,13 +8,16 @@ import * as CtxApp from './'
 
 const Provider: React.FC<React.PropsWithChildren> = (props) => {
 
+  const [resturantCitySearchValue, resturantCitySearchValueHandler] = React.useState('')
   const [loginModalShow, toggleLoginModalShow] = Hooks.common.useToggle(false)
   
   return (
     <CtxApp.Context.Provider
       value={{
         loginModalShow,
-        toggleLoginModalShow
+        toggleLoginModalShow,
+        resturantCitySearchValue,
+        changeResturantCitySearchValue: resturantCitySearchValueHandler
       }}
     >
       {props.children}

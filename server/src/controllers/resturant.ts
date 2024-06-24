@@ -3,6 +3,7 @@ import * as Models  from '../models'
 import * as Utils from '../utilities'
 
 export const getByCity = Utils.catchAsync(async (req, res, next) => {
+  console.log('puppies')
   const name = req.query.name as string 
   const cuisines = req.query.cuisines as string
 
@@ -12,7 +13,7 @@ export const getByCity = Utils.catchAsync(async (req, res, next) => {
   if (name) query.name = { $regex: name, $options: 'i' }
 
   const total = await Models.Resturant.find(query).countDocuments()
-  const limit = parseInt(req.query.limit as string) || 1
+  const limit = parseInt(req.query.limit as string) || 10
   const page = parseInt(req.query.page as string) || 1
   
   const pagination = {
@@ -21,7 +22,7 @@ export const getByCity = Utils.catchAsync(async (req, res, next) => {
     totalPages: Math.ceil(total / limit)
   }
 
-  const records = await Models.Resturant.find(query).limit(limit).skip((page - 1) * limit)
+  const records = await Models.Resturant.find(query).limit(limit).skip((page - 1) * limit).lean()
 
   res.status(200).json({ records, pagination })
 })

@@ -2,6 +2,7 @@
 import * as React from 'react'
 
 import * as Images from '@/assets/images'
+import ResturantSearch from '@/components/custom/ResturantSearch'
 
 const Landing: React.FC = () => {
 
@@ -10,6 +11,7 @@ const Landing: React.FC = () => {
       <div className='bg-white rounder-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16'>
         <h3 className='text-5xl font-bold tracking-tight text-orange-600'>Tuck into a takeway today</h3>
         <span className='text-xl'>Food is just a click away!</span>
+        <ResturantSearch />
       </div>
 
       <div className='grid md:grid-cols-2 gap-5'>
