@@ -20,7 +20,7 @@ export interface SearchProps extends React.PropsWithChildren {
 const Search: React.FC<SearchProps> = (props) => {
   const appCtx = App.Ctx.useContext()
   const [selectedCuisines, selectedCusisnesHandler] = React.useState<number[]>([2])
-  const resturants = Hooks.resturant.useSearchByCity({ city: appCtx.resturantCitySearchValue, params: { limit: 50 } })
+  const resturants = Hooks.resturant.useSearchByCity({ city: appCtx.resturantCitySearchValue, params: { limit: 50, cuisines: selectedCuisines } })
   const cuisines = Object.keys(Core.keys.cuisine)
 
   const renderList = () => (
@@ -36,11 +36,7 @@ const Search: React.FC<SearchProps> = (props) => {
     else selectedCusisnesHandler([ ...selectedCuisines, key ])
   }
 
-  const isCuisineSelected = (args: keyof typeof Core.keys.cuisine) => {
-    const test = selectedCuisines.includes(Core.keys.cuisine[args])
-    console.log('pyppy test, ', args, Core.keys.cuisine[args], test)
-    return test ? 'bg-orange-500': 'bg-white'
-  }
+  const isCuisineSelected = (args: keyof typeof Core.keys.cuisine) => selectedCuisines.includes(Core.keys.cuisine[args]) ? 'bg-orange-500 text-white': 'bg-white text-orange-500'
 
   return (
     <div>
@@ -49,7 +45,7 @@ const Search: React.FC<SearchProps> = (props) => {
         <CarouselContent>
           {cuisines.map(dataSet => (
             <CarouselItem key={dataSet}  className={`basis-1/5 ml-4 text-center h-[75px]  shadow-[#000] select-none cursor-arrow border-orange-500 border-2 shadow-sm p-0`}>
-              <Button  variant='ghost' value={dataSet} className={`h-full w-full ${isCuisineSelected(dataSet as keyof typeof Core.keys.cuisine)} transition-all duration-300 hover:bg-orange-500`} onClick={onCuisineSelect}>
+              <Button  variant='ghost' value={dataSet} className={`h-full w-full rounded-none ${isCuisineSelected(dataSet as keyof typeof Core.keys.cuisine)} transition-all duration-300 hover:bg-orange-500 hover:text-white`} onClick={onCuisineSelect}>
                 {dataSet}
               </Button>
             </CarouselItem>

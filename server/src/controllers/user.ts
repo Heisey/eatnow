@@ -53,7 +53,7 @@ export const loginUser = Utils.catchAsync(async (req, res, next) => {
   if (user) return res.status(200).json({ records: user })
     
   const firebaseUser = await Services.firebase.auth.getUserByEmail(req.body.email)
-  console.log('puppy, ', firebaseUser.uid)
+  
   const newUser = await new Models.User({ ...req.body, firebaseId: firebaseUser.uid }).save()
   
   if (!newUser) return res.status(500).json({ message: 'failed to create user' })

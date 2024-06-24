@@ -5,7 +5,6 @@ import * as Lucide from 'lucide-react'
 
 import * as Core from '@/core'
 import * as Utils from '@/utils'
-import { Button } from '@/components/ui/button'
 
 export interface ListItemProps extends React.PropsWithChildren {
   data: Core.I.ResturantRecord

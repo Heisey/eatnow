@@ -3,13 +3,12 @@ import * as Models  from '../models'
 import * as Utils from '../utilities'
 
 export const getByCity = Utils.catchAsync(async (req, res, next) => {
-  console.log('puppies')
   const name = req.query.name as string 
-  const cuisines = req.query.cuisines as string
+  const cuisines = req.query.cuisines as string[]
 
   const query: any = { city: new RegExp(req.params.city || '', 'i') }
 
-  if (cuisines) query.cuisine = { $in: cuisines.split(',').map(dataSet =>  parseInt(dataSet)) }  
+  if (cuisines) query.cuisine = { $in: cuisines.map(dataSet =>  parseInt(dataSet)) }  
   if (name) query.name = { $regex: name, $options: 'i' }
 
   const total = await Models.Resturant.find(query).countDocuments()
