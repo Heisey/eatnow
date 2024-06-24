@@ -19,7 +19,7 @@ export interface SearchProps extends React.PropsWithChildren {
 
 const Search: React.FC<SearchProps> = (props) => {
   const appCtx = App.Ctx.useContext()
-  const [selectedCuisines, selectedCusisnesHandler] = React.useState<number[]>([2])
+  const [selectedCuisines, selectedCusisnesHandler] = React.useState<number[]>([])
   const resturants = Hooks.resturant.useSearchByCity({ city: appCtx.resturantCitySearchValue, params: { limit: 50, cuisines: selectedCuisines } })
   const cuisines = Object.keys(Core.keys.cuisine)
 

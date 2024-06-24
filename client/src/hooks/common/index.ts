@@ -12,6 +12,7 @@ export const useForm = ReactHookForm.useForm
 // From react-router-dom package
 export const useLocation = Router.useLocation
 export const useNavigate =  Router.useNavigate
+export const useParams = Router.useParams
 
 
 export const useAuth = AuthProvider.useContext

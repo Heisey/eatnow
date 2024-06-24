@@ -8,6 +8,7 @@ import UserProfile from '@/pages/UserProfile'
 
 import ResturantsOutlet from '@/pages/Resturants/Outlet'
 import ResturantSearch from '@/pages/Resturants/Search'
+import ResturantInfo from '@/pages/Resturants/Info'
 
 import ResturantProfileDetails from '@/pages/ResturantProfile/Details'
 import ResturantProfileMenu from '@/pages/ResturantProfile/Menu'
@@ -34,6 +35,7 @@ const App: React.FC = () => {
 
           <Router.Route path={Core.keys.paths.RESTURANTS} element={<ResturantsOutlet />}>
             <Router.Route index  element={<ResturantSearch />} />
+            <Router.Route path={Core.keys.paths.RESTURANTS_INFO} element={<ResturantInfo />} />
           </Router.Route>
 
           <Router.Route path={Core.keys.paths.RESTURANT_PROFILE} element={<ResturantProfileOutlet />}>

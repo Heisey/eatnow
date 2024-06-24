@@ -7,5 +7,6 @@ export const RESTURANT_PROFILE_OVERVIEW = '/resturant-profile/overview'
 
 export const RESTURANTS = '/resturants'
 export const RESTURANTS_SEARCH ='/resturants/search'
+export const RESTURANTS_INFO = '/resturants/info/:id'
 
 export const USER_PROFILE = '/user-profile'
