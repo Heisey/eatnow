@@ -6,11 +6,9 @@ import * as Middleware from '../middleware'
 
 const router = express.Router()
 
-router.use(Middleware.auth.jwtCheck)
+router.post('/', Middleware.auth.jwtCheck, Controllers.resturantProfile.create)
 
-router.post('/', Controllers.resturantProfile.create)
-
-router.post('/menuItems', Controllers.menuItem.create)
+router.post('/menuItems', Middleware.auth.jwtCheck, Controllers.menuItem.create)
 
 router.get('/:id', Controllers.resturantProfile.getById)
 

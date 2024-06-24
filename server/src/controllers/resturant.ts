@@ -21,7 +21,7 @@ export const getByCity = Utils.catchAsync(async (req, res, next) => {
     totalPages: Math.ceil(total / limit)
   }
 
-  const records = await Models.Resturant.find(query).limit(limit).skip((page - 1) * limit).lean()
+  const records = await Models.Resturant.find(query).limit(limit).skip((page - 1) * limit)
 
   res.status(200).json({ records, pagination })
 })

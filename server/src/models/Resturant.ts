@@ -44,8 +44,38 @@ const ResturantSchema = new mongoose.Schema<I.ResturantRecord>({
     type: Boolean,
     default: false
   }
-}, {
-  timestamps: true
 })
+
+ResturantSchema.set('toJSON', {
+  transform: function(doc, rec) {
+    rec.id = rec._id
+    delete rec._id
+    return rec
+  },
+  virtuals: true
+})
+// ResturantSchema.virtual('id').get(function() {
+//   return this._id
+// })
+
+// ResturantSchema.set("toJSON", { virtuals: true })
+// ResturantSchema.set('toObject', { virtuals: true})
+
+// ResturantSchema.set('toJSON', {
+//   transform: function(doc, rec) {
+//     rec.id = rec._id
+//     delete rec._id
+//     return rec
+//   },
+//   virtuals: true
+// })
+
+// ResturantSchema.virtual('id').get(function(){
+//   return this._id.toHexString()
+// })
+
+// ResturantSchema.set('toJSON', {
+//   virtuals: true
+// });
 
 export default mongoose.model('Resturant', ResturantSchema)
