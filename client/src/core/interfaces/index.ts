@@ -1,4 +1,6 @@
 
+export type { CartItem } from './CartItem'
+
 export type { Credentials } from './Credentials'
 
 export type { Cuisine } from './Cuisine'

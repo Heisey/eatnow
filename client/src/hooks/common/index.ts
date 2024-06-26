@@ -20,4 +20,6 @@ export const useAuth = AuthProvider.useContext
 // Project made hooks
 export * from './useImagePreview'
 
+export * from './useLocalStorage'
+
 export * from './useToggle'

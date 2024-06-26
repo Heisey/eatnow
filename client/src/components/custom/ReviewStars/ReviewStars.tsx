@@ -3,16 +3,16 @@
 import * as React from 'react'
 import * as Lucide from 'lucide-react'
 
+import * as Lib from '@/lib/utils'
 
 export interface ReviewStarsProps extends React.PropsWithChildren {
-
+  className?: string
 
 }
 
 
 const ReviewStars: React.FC<ReviewStarsProps> = (props) => {
 
-  // const randcomTemp = Math.ceil(Math.random() * 100)
   const stars = Math.floor(Math.random() * 5)
 
   const renderStars = () => {
@@ -25,7 +25,7 @@ const ReviewStars: React.FC<ReviewStarsProps> = (props) => {
   }
 
   return (
-    <div className='flex'>
+    <div className={Lib.cn('flex', props.className)}>
       {renderStars()}
     </div>
   )

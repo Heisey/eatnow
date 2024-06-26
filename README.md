@@ -7,7 +7,7 @@ Before you start, ensure you have the following installed:
 - [npm](https://www.npmjs.com/)
 
 ## Database
-if running the database locally run make sure mongo is running
+if running the database locally make sure mongo is running
 
 ## Server
 Start a new terminal from project root
