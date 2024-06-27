@@ -1,4 +1,8 @@
 
+export const CHECKOUT_OVERVIEW = '/checkout'
+export const CHECKOUT_USER_INFO = '/checkout/userInfo'
+export const CHECKOUT_CART = '/checkout/cart'
+
 export const RESTURANT_PROFILE = '/resturant-profile'
 export const RESTURANT_PROFILE_DETAILS = '/resturant-profile/details'
 export const RESTURANT_PROFILE_MENU = '/resturant-profile/menu'

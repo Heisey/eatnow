@@ -43,12 +43,6 @@ const UserProfile: React.FC<UserProfileProps> = () => {
 
   if (!user.data?.id && !user.isLoading) return <div>failed to load user</div>
 
-  // Load Form with values from server
-  // React.useEffect(() => {
-  //   if (!form.getValues('id') && user.data?.id) form.reset((dataSet) => ({ ...dataSet, ...user.data }))
-  // }, [user.data?.id])
-
-  // Shows toast notification on success
   React.useEffect(() => {
     if (updateUser.isSuccess) Sonner.toast.success('User Profile Updated')
     else if (updateUser.isError) Sonner.toast.error('Something went wrong')

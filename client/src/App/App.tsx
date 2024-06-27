@@ -6,6 +6,10 @@ import * as Core from '@/core'
 import Landing from '@/pages/Landing'
 import UserProfile from '@/pages/UserProfile'
 
+import CheckoutOutlet from '@/pages/Checkout/Outlet'
+import CheckoutUserInfo from '@/pages/Checkout/UserInfo'
+import CheckoutCart from '@/pages/Checkout/Cart'
+
 import ResturantsOutlet from '@/pages/Resturants/Outlet'
 import ResturantSearch from '@/pages/Resturants/Search'
 import ResturantInfo from '@/pages/Resturants/Info'
@@ -43,6 +47,11 @@ const App: React.FC = () => {
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_DETAILS} element={<ResturantProfileDetails />} />
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_MENU} element={<ResturantProfileMenu />} />
             <Router.Route path={Core.keys.paths.RESTURANT_PROFILE_MENU_ITEMS} element={<ResturantProfileMenuItems />} />
+          </Router.Route>
+
+          <Router.Route path={Core.keys.paths.CHECKOUT_OVERVIEW} element={<CheckoutOutlet />}>
+            <Router.Route path={Core.keys.paths.CHECKOUT_CART} element={<CheckoutCart />} />
+            <Router.Route path={Core.keys.paths.CHECKOUT_USER_INFO} element={<CheckoutUserInfo />} />
           </Router.Route>
         </Router.Route>
 

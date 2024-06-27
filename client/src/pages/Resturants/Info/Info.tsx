@@ -1,6 +1,7 @@
 
 
 import * as React from 'react'
+import * as Router from 'react-router-dom'
 import * as Lucide from 'lucide-react'
 
 import * as App from '@/App'
@@ -20,10 +21,12 @@ export interface InfoProps extends React.PropsWithChildren {
 
 const Info: React.FC<InfoProps> = () => {
   
+  const auth = Hooks.common.useAuth()
   const params = Hooks.common.useParams()
   const resturant = Hooks.resturantProfile.useGetById(params.id)
   const menu = Hooks.menu.useGetById(resturant.data?.menuId)
   const appCtx = App.Ctx.useContext()
+  const user = Hooks.user.useGetUserByEmail(auth.user?.email)
   
   if (resturant.isLoading || menu.isLoading) return <div>Loading</div>
 
@@ -59,6 +62,8 @@ const Info: React.FC<InfoProps> = () => {
     appCtx.updateCart([ ...appCtx.cart.filter(dataSet => dataSet.id !== args.id), { ...args, quantity: args.quantity - 1 } ])
   }
 
+  const checkoutPath = user.data?.address ? Core.keys.paths.CHECKOUT_CART : Core.keys.paths.CHECKOUT_USER_INFO
+
   return (
     <div>
       <Header resturant={resturant.data!} />
@@ -77,8 +82,8 @@ const Info: React.FC<InfoProps> = () => {
               {appCtx.cart.length > 0 && appCtx.cart.map(dataSet => renderListItem(dataSet))}
             </ul>
           </div>
-
-          <Button className='bg-orange-500 w-full text-white font-bold'>Checkout</Button>
+          {!auth.user && <Button onClick={auth.loginWithGoogle} className='bg-orange-500 w-full text-white font-bold'>Login to Proceed</Button>}
+          {auth.user && <Router.Link to={checkoutPath}><Button disabled={appCtx.cart.length === 0} className='bg-orange-500 w-full text-white font-bold'>Continue to Checkout</Button></Router.Link>}
         </div>
       </div>
     </div>

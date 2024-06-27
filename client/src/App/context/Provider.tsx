@@ -20,6 +20,7 @@ const Provider: React.FC<React.PropsWithChildren> = (props) => {
 
   const updateCart = (args: Core.I.CartItem[]) => {
     cartHandler(args)
+    if (args.length === 0) return localStore.clear()
     localStore.set(args)
   }
 
