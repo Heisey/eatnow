@@ -8,6 +8,7 @@ export interface Context {
   resturantCitySearchValue: string
   changeResturantCitySearchValue: (args: string) => void
 
-  cart: Core.I.CartItem[],
-  updateCart: (args: Core.I.CartItem[]) => void
+  cart: Core.I.Cart,
+  setCart: (args: Core.I.Cart) => void
+  updateCartItems: (args: Core.I.CartItem[]) => void
 }

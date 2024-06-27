@@ -47,19 +47,19 @@ const Info: React.FC<InfoProps> = () => {
   )
 
   const calcTotal = () => {
-    if (appCtx.cart.length === 0) return 0
+    if (appCtx.cart.items.length === 0) return 0
     let result = 0
-    appCtx.cart.map(dataSet => result = result + (dataSet.price * dataSet.quantity))
+    appCtx.cart.items.map(dataSet => result = result + (dataSet.price * dataSet.quantity))
     return result
   }
 
   const increaseQuanity = (args: Core.I.CartItem) => {
-    appCtx.updateCart([ ...appCtx.cart.filter(dataSet => dataSet.id !== args.id), { ...args, quantity: args.quantity + 1 } ])
+    appCtx.updateCartItems([ ...appCtx.cart.items.filter(dataSet => dataSet.id !== args.id), { ...args, quantity: args.quantity + 1 } ])
   }
 
   const decreaseQuantity = (args: Core.I.CartItem) => {
-    if (args.quantity === 1) return appCtx.updateCart(appCtx.cart.filter(dataSet => dataSet.id !== args.id ))
-    appCtx.updateCart([ ...appCtx.cart.filter(dataSet => dataSet.id !== args.id), { ...args, quantity: args.quantity - 1 } ])
+    if (args.quantity === 1) return appCtx.updateCartItems(appCtx.cart.items.filter(dataSet => dataSet.id !== args.id ))
+    appCtx.updateCartItems([ ...appCtx.cart.items.filter(dataSet => dataSet.id !== args.id), { ...args, quantity: args.quantity - 1 } ])
   }
 
   const checkoutPath = user.data?.address ? Core.keys.paths.CHECKOUT_CART : Core.keys.paths.CHECKOUT_USER_INFO
@@ -69,7 +69,7 @@ const Info: React.FC<InfoProps> = () => {
       <Header resturant={resturant.data!} />
       <Cuisines categories={categories} />
       <div className='flex gap-4'>
-        <MenuList menu={menu.data!} categories={categories}  />
+        <MenuList menu={menu.data!} categories={categories} resturant={resturant.data} />
         <div className='border-2 border-orange-500 h-fit p-2 mt-[96px] max-w-[350px] min-w-[250px]'>
           <div className='flex justify-between items-center border-b-2 border-orange-500 pb-[5px] mb-2'>
             <span>Your Order</span>
@@ -78,12 +78,12 @@ const Info: React.FC<InfoProps> = () => {
 
           <div className='mb-4'>
             <ul>
-              {appCtx.cart.length === 0 && <li>you have no added anything yet</li>}
-              {appCtx.cart.length > 0 && appCtx.cart.map(dataSet => renderListItem(dataSet))}
+              {appCtx.cart.items.length === 0 && <li>you have no added anything yet</li>}
+              {appCtx.cart.items.length > 0 && appCtx.cart.items.map(dataSet => renderListItem(dataSet))}
             </ul>
           </div>
           {!auth.user && <Button onClick={auth.loginWithGoogle} className='bg-orange-500 w-full text-white font-bold'>Login to Proceed</Button>}
-          {auth.user && <Router.Link to={checkoutPath}><Button disabled={appCtx.cart.length === 0} className='bg-orange-500 w-full text-white font-bold'>Continue to Checkout</Button></Router.Link>}
+          {auth.user && <Router.Link to={checkoutPath}><Button disabled={appCtx.cart.items.length === 0} className='bg-orange-500 w-full text-white font-bold'>Continue to Checkout</Button></Router.Link>}
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 export interface MenuListProps extends React.PropsWithChildren {
   menu: Core.I.MenuRecord
   categories: string[]
+  resturant?: Core.I.ResturantRecord
 }
 
 
@@ -19,9 +20,10 @@ const MenuList: React.FC<MenuListProps> = (props) => {
   const appCtx = App.Ctx.useContext()
 
   const addToCart = (args: Core.I.MenuItemRecord) => {
-    const record = appCtx.cart.find(dataSet => dataSet.id === args.id)
-    if (!record) return appCtx.updateCart([ ...appCtx.cart, { ...args, quantity: 1 } ])
-    appCtx.updateCart([ ...appCtx.cart.filter(dataSet => dataSet.id !== args.id), { ...record, quantity: record.quantity + 1 } ])
+    if (props.resturant?.id !== appCtx.cart.resturantId) return appCtx.setCart({ resturantId: props.resturant?.id!, deliveryPrice: props.resturant?.deliveryPrice!, items: [{ ...args, quantity: 1 }] })
+    const record = appCtx.cart.items.find(dataSet => dataSet.id === args.id)
+    if (!record) return appCtx.updateCartItems([ ...appCtx.cart.items, { ...args, quantity: 1 } ])
+    appCtx.updateCartItems([ ...appCtx.cart.items.filter(dataSet => dataSet.id !== args.id), { ...record, quantity: record.quantity + 1 } ])
     
   }
 
