@@ -59,3 +59,7 @@ run start command
 ```sh
 npm start
 ```
+
+7. **Start Client:**
+
+For instructions to setup and start client click [here](./serverStart.md)
