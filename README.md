@@ -10,6 +10,12 @@ It was originally inspired by [tutorial](https://www.youtube.com/watch?v=ardeKHE
 
 The changes from the original project have been documented [here](./markdown//changes.md)
 
+## Third Party Services
+Multiple Services have been implemeted and accounts are required for the project. The following services are used:
+ - firebase
+ - aws
+ - stripe
+
 ## Project Start
 
 for instruction on how to setup and start project start [here](./markdown//serverStart.md)

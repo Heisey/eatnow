@@ -25,14 +25,14 @@ in the root on server directory enter
 touch .env
 ```
 
-3. **Set project variables:**
+3. **Set connection variables:**
 
 variables to be set:
 SERVER_PORT
 DB_CONNECTION_STRING
 
 
-4. **Set up a firebase key:**
+4. **Set up a firebase account:**
 
 variables to be set:
 FIREBASE_TYPE
@@ -46,13 +46,18 @@ FIREBASE_AUTH_CERT
 FIREBASE_CLIENT_CERT
 FIREBASE_DOMAIN
 
-5. **Install dependencies:**
+5. **Set up a stripe account:**
+
+variables to be set
+STRIPE_SECRET
+
+6. **Install dependencies:**
 
 ```sh
 npm install
 ```
 
-6. **Start project:**
+7. **Start project:**
 
 run start command
 
@@ -60,6 +65,6 @@ run start command
 npm start
 ```
 
-7. **Start Client:**
+8. **Start Client:**
 
 For instructions to setup and start client click [here](./clientStart.md)

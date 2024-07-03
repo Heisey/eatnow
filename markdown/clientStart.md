@@ -12,7 +12,7 @@ cd client
 variables to be set:
 VITE_SERVER_URL
 
-3. **Set up a firebase project:**
+3. **Set firebase keys:**
 
 variables to be set:
 VITE_FIREBASE_API_KEY
@@ -30,13 +30,18 @@ VITE_AWS_KEY_ID,
 VITE_AWS_SECRET_KEY,
 VITE_AWS_BUCKET
 
-5. **Install dependencies:**
+5. **Set stripe keys:**
+
+variables to be set:
+VITE_STRIPE_KEY
+
+6. **Install dependencies:**
 
 ```sh
 npm install
 ```
 
-6. **Start project:**
+7. **Start project:**
 
 run start command
 
