@@ -30,7 +30,7 @@ const MenuList: React.FC<MenuListProps> = (props) => {
   const renderMenuItemInfo = (args: Core.I.MenuItemRecord) => {
     const randcomTemp = Math.ceil(Math.random() * 100)
     return (
-      <li className='mb-2 border-orange-500 border-2 flex group transition-all duration-300 hover:bg-orange-500'>
+      <li key={args.id} className='mb-2 border-orange-500 border-2 flex group transition-all duration-300 hover:bg-orange-500'>
         <img className='h-[125px]' src={`https://picsum.photos/seed/food${randcomTemp}/800`} />
         <div className='flex p-2 justify-apart w-full'>
           <div className='w-full grow flex flex-col'>
@@ -65,7 +65,7 @@ const MenuList: React.FC<MenuListProps> = (props) => {
   return (
     <ul className='mt-[50px] w-[80%]'>
       {props.categories.map(dataSet => (
-        <li id={dataSet} className='mb-8'>
+        <li key={`menu-item-${dataSet}`} id={dataSet} className='mb-8'>
           <h5 className='text-[25px] text-orange-500 font-bold underline mb-2'>{Utils.string.capitalizeAllWords(dataSet)}</h5>
           {renderMenuItems(dataSet as keyof Core.I.MenuInfo)}
         </li>

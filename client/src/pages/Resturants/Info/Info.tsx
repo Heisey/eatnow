@@ -33,7 +33,7 @@ const Info: React.FC<InfoProps> = () => {
   const categories = Object.keys(menu.data || {}).filter(dataSet => dataSet !== 'id').filter(dataSet => dataSet !== '__v')
 
   const renderListItem = (args: Core.I.CartItem) => (
-    <li className='flex justify-between items-center'>
+    <li key={`cart-item-${args.id}`} className='flex justify-between items-center'>
       <span className='grow'>{args.name}</span>
       <div className='flex items-center'>
         <div className='mr-1'>

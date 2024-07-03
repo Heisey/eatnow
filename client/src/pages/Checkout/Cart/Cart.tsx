@@ -2,11 +2,15 @@
 
 import * as React from 'react'
 import *  as ReactTable from '@tanstack/react-table'
+import * as Router from 'react-router-dom'
 
 import * as App from '@/App'
 import * as Core from '@/core'
+import * as Hooks from '@/hooks'
 import * as Utils from '@/utils'
+import Payment from '@/components/hoc/Payment'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Button } from '@/components/ui/button'
 
 export interface CartProps extends React.PropsWithChildren {
 
@@ -17,6 +21,7 @@ export interface CartProps extends React.PropsWithChildren {
 const Cart: React.FC<CartProps> = (props) => {
 
   const appCtx = App.Ctx.useContext()
+
 
   const columnConfig = ReactTable.createColumnHelper<Core.I.CartItem>()
 
@@ -41,6 +46,13 @@ const Cart: React.FC<CartProps> = (props) => {
 
   const calcTax = calcSubTotal() * 0.05
 
+  const makePayment = async () => {
+    console.log('puppy start')
+    const payment = await 
+    console.log('puppy end')
+    console.log('payment, ', payment)
+  }
+
   return (
     <div className='max-w-[900px] mx-auto'>
       <h2 className='mb-8 font-bold text-2xl text-orange-500'>Order</h2>
@@ -50,7 +62,7 @@ const Cart: React.FC<CartProps> = (props) => {
             {table.getHeaderGroups().map(row => (
               <TableRow key={row.id}>
                 {row.headers.map(cell => (
-                  <TableHead key={cell.id}>
+                  <TableHead key={cell.id + Math.random() * 1000}>
                     {cell.isPlaceholder ? null : ReactTable.flexRender(cell.column.columnDef.header, cell.getContext())}
                   </TableHead>
                 ))}
@@ -85,6 +97,9 @@ const Cart: React.FC<CartProps> = (props) => {
           <div className='flex items-center justify-end'>
             <span className='mr-2 font-bold'>Total</span>
             <span>{`$${calcSubTotal() + calcTax + appCtx.cart.deliveryPrice}`}</span>
+          </div>
+          <div className='mt-4'>
+            <Router.Link to={Core.keys.paths.CHECKOUT_PAYMENT}>Go To Payment</Router.Link>
           </div>
         </div>
       </div>

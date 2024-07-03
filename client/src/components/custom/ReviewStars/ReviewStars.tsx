@@ -18,7 +18,7 @@ const ReviewStars: React.FC<ReviewStarsProps> = (props) => {
   const renderStars = () => {
     let result = []
     for (let i = 0; i < 5; i++) {
-      if (i <= stars) result.push(<Lucide.Star className='fill-yellow-500' />)
+      if (i <= stars) result.push(<Lucide.Star key={`${Math.floor(Math.random() * 100000)}-${stars}`} className='fill-yellow-500' />)
       else result.push(<Lucide.Star className='stroke-yellow-500' />)
     }
     return result
@@ -26,7 +26,7 @@ const ReviewStars: React.FC<ReviewStarsProps> = (props) => {
 
   return (
     <div className={Lib.cn('flex', props.className)}>
-      {renderStars()}
+      {renderStars().map(Component => Component)}
     </div>
   )
 }

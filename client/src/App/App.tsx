@@ -9,6 +9,8 @@ import UserProfile from '@/pages/UserProfile'
 import CheckoutOutlet from '@/pages/Checkout/Outlet'
 import CheckoutUserInfo from '@/pages/Checkout/UserInfo'
 import CheckoutCart from '@/pages/Checkout/Cart'
+import CheckoutReceipt from '@/pages/Checkout/Receipt'
+import CheckoutPayment from '@/pages/Checkout/Payment'
 
 import ResturantsOutlet from '@/pages/Resturants/Outlet'
 import ResturantSearch from '@/pages/Resturants/Search'
@@ -52,6 +54,8 @@ const App: React.FC = () => {
           <Router.Route path={Core.keys.paths.CHECKOUT_OVERVIEW} element={<CheckoutOutlet />}>
             <Router.Route path={Core.keys.paths.CHECKOUT_CART} element={<CheckoutCart />} />
             <Router.Route path={Core.keys.paths.CHECKOUT_USER_INFO} element={<CheckoutUserInfo />} />
+            <Router.Route path={Core.keys.paths.CHECKOUT_RECEIPT} element={<CheckoutReceipt />} />
+            <Router.Route path={Core.keys.paths.CHECKOUT_PAYMENT} element={<CheckoutPayment />} />
           </Router.Route>
         </Router.Route>
 
